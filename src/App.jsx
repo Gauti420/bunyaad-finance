@@ -130,11 +130,11 @@ function Navbar({ page, setPage }) {
               {p}
             </button>
           ))}
-          <button onClick={() => setPage("Calculator")}
+          <button onClick={() => setPage("Products")}
             style={{ marginLeft:6,backgroundColor:C.green,color:"#fff",border:"none",borderRadius:7,
               padding:"8px 18px",fontSize:"0.77rem",fontWeight:700,cursor:"pointer",fontFamily:F,
               boxShadow:`0 3px 14px rgba(19,178,75,0.4)`,display:"flex",alignItems:"center",gap:8 }}>
-            <Calculator size={14}/>Calculator
+            <Download size={16}/>Download App
           </button>
         </div>
       </div>
@@ -922,10 +922,7 @@ function Footer({ setPage }) {
             </div>
           ))}
         </div>
-        <div style={{ marginBottom:"1rem",background:"rgba(245,158,11,0.08)",border:"1px solid rgba(245,158,11,0.18)",borderRadius:12,padding:"0.85rem 1rem" }}>
-          <div style={{ color:"#fbbf24",fontSize:"0.78rem",fontWeight:700,marginBottom:4 }}>Calculator Note</div>
-          <div style={{ color:"rgba(255,255,255,0.68)",fontSize:"0.78rem",lineHeight:1.65 }}>QuickCash 14 and GrowthCash 90 are shown in the calculator for display only. Only FlexiCash 30 is currently available on the website.</div>
-        </div>
+      
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:"1.5rem",display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:"0.75rem" }}>
           <p style={{ color:"rgba(255,255,255,0.22)",fontSize:"0.7rem",margin:0 }}>© 2026 Bunyaad Finance | Operated by Credsys — Licensed NBFC / Regulated Entity</p>
           <p style={{ color:"rgba(255,255,255,0.22)",fontSize:"0.68rem",margin:0 }}>For information purposes only. Subject to applicable terms, eligibility, and approval.</p>
