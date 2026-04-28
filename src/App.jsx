@@ -104,40 +104,188 @@ function Logo({ dark = false }) {
 
 const PAGES = ["Home","About Us","Products","How It Works","Calculator","FAQs","Contact"];
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= breakpoint);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
+function useIsTablet(breakpoint = 1024) {
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= breakpoint);
+
+  useEffect(() => {
+    const handleResize = () => setIsTablet(window.innerWidth <= breakpoint);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]);
+
+  return isTablet;
+}
+
 function Navbar({ page, setPage }) {
-  const [scrolled,setScrolled]=useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
-  },[]);
+  }, []);
+
   return (
-    <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:999,fontFamily:F,
-      background:scrolled?"rgba(17,24,48,0.97)":C.navyD,
-      backdropFilter:"blur(16px)",
-      boxShadow:scrolled?"0 2px 24px rgba(0,0,0,0.3)":"none",transition:"all .3s" }}>
-      <div style={{ maxWidth:"100vw",margin:"0 auto",padding:"0 1.5rem",display:"flex",alignItems:"center",justifyContent:"space-between",height:66 }}>
-        <button onClick={() => setPage("Home")} style={{ background:"none",border:"none",cursor:"pointer",padding:0 }}>
-          <Logo dark/>
+    <nav
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 999,
+        fontFamily: F,
+        background: scrolled ? "rgba(17,24,48,0.97)" : C.navyD,
+        backdropFilter: "blur(16px)",
+        boxShadow: scrolled ? "0 2px 24px rgba(0,0,0,0.3)" : "none",
+        transition: "all .3s",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "0 1rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          minHeight: 66,
+        }}
+      >
+        <button
+          onClick={() => setPage("Home")}
+          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+        >
+          <Logo dark />
         </button>
-        <div style={{ display:"flex",alignItems:"center",gap:"0.15rem" }}>
-          {PAGES.map(p => (
-            <button key={p} onClick={() => setPage(p)}
-              style={{ background:"none",border:"none",fontFamily:F,fontSize:"0.77rem",fontWeight:500,cursor:"pointer",
-                padding:"6px 10px",borderRadius:6,transition:"all .2s",
-                color:page===p?C.green:"rgba(255,255,255,0.75)",
-                borderBottom:page===p?`2px solid ${C.green}`:"2px solid transparent" }}>
+
+        {isMobile ? (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        ) : (
+          <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", flexWrap: "wrap" }}>
+            {PAGES.map((p) => (
+              <button
+                key={p}
+                onClick={() => setPage(p)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontFamily: F,
+                  fontSize: "0.82rem",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  padding: "6px 10px",
+                  borderRadius: 6,
+                  color: page === p ? C.green : "rgba(255,255,255,0.75)",
+                  borderBottom: page === p ? `2px solid ${C.green}` : "2px solid transparent",
+                }}
+              >
+                {p}
+              </button>
+            ))}
+
+            <button
+              onClick={() => setPage("Products")}
+              style={{
+                marginLeft: 6,
+                backgroundColor: C.green,
+                color: "#fff",
+                border: "none",
+                borderRadius: 7,
+                padding: "8px 16px",
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                cursor: "pointer",
+                fontFamily: F,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              <Download size={16} />
+              Download App
+            </button>
+          </div>
+        )}
+      </div>
+
+      {isMobile && menuOpen && (
+        <div
+          style={{
+            padding: "0.75rem 1rem 1rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+            background: C.navyD,
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
+          {PAGES.map((p) => (
+            <button
+              key={p}
+              onClick={() => {
+                setPage(p);
+                setMenuOpen(false);
+              }}
+              style={{
+                background: "none",
+                border: "1px solid rgba(255,255,255,0.08)",
+                color: "#fff",
+                textAlign: "left",
+                padding: "0.8rem 1rem",
+                borderRadius: 8,
+                fontFamily: F,
+                cursor: "pointer",
+              }}
+            >
               {p}
             </button>
           ))}
-          <button onClick={() => setPage("Products")}
-            style={{ marginLeft:6,backgroundColor:C.green,color:"#fff",border:"none",borderRadius:7,
-              padding:"8px 18px",fontSize:"0.77rem",fontWeight:700,cursor:"pointer",fontFamily:F,
-              boxShadow:`0 3px 14px rgba(19,178,75,0.4)`,display:"flex",alignItems:"center",gap:8 }}>
-            <Download size={16}/>Download App
+
+          <button
+            onClick={() => {
+              setPage("Products");
+              setMenuOpen(false);
+            }}
+            style={{
+              backgroundColor: C.green,
+              color: "#fff",
+              border: "none",
+              borderRadius: 8,
+              padding: "0.9rem 1rem",
+              fontWeight: 700,
+              fontFamily: F,
+              cursor: "pointer",
+            }}
+          >
+            Download App
           </button>
         </div>
-      </div>
+      )}
+
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');*{box-sizing:border-box}body{margin:0;background:#f0f4ff;font-family:'Poppins',sans-serif}`}</style>
     </nav>
   );
@@ -145,9 +293,9 @@ function Navbar({ page, setPage }) {
 
 function PhoneMockup() {
   return (
-    <div style={{ position:"relative",width:230,flexShrink:0 }}>
+    <div style={{ position:"relative",width:"100%",maxWidth:230,margin:"0 auto",flexShrink:0 }}>
       <div style={{ position:"absolute",top:"15%",left:"50%",transform:"translateX(-50%)",width:220,height:220,borderRadius:"50%",background:`radial-gradient(circle,rgba(19,178,75,0.22) 0%,transparent 70%)`,pointerEvents:"none",zIndex:0 }}/>
-      <div style={{ position:"relative",zIndex:1,width:230,height:460,borderRadius:38,background:"linear-gradient(160deg,#1e2d6b,#0f1a38)",border:"2px solid rgba(255,255,255,0.18)",boxShadow:"0 36px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.14)",overflow:"hidden" }}>
+      <div style={{ position:"relative",zIndex:1,width:"100%",aspectRatio:"230 / 460",borderRadius:38,background:"linear-gradient(160deg,#1e2d6b,#0f1a38)",border:"2px solid rgba(255,255,255,0.18)",boxShadow:"0 36px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.14)",overflow:"hidden" }}>
         <div style={{ position:"absolute",top:0,left:"50%",transform:"translateX(-50%)",width:88,height:24,background:"#080f20",borderRadius:"0 0 18px 18px",zIndex:10,display:"flex",alignItems:"center",justifyContent:"center",gap:5 }}>
           <div style={{ width:7,height:7,borderRadius:"50%",background:"#1a2a4a" }}/>
           <div style={{ width:38,height:5,borderRadius:3,background:"#1a2a4a" }}/>
@@ -226,12 +374,14 @@ const HOME_PRODUCTS = [
 ];
 
 function HomePage({ setPage }) {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   return (
     <div>
-      <section style={{ minHeight:"100vh",background:`linear-gradient(145deg,${C.navyD} 0%,${C.navy} 55%,#1a3070 100%)`,display:"flex",alignItems:"center",padding:"80px 1.5rem 4rem",fontFamily:F,position:"relative",overflow:"hidden" }}>
+      <section style={{ minHeight:"100vh",background:`linear-gradient(145deg,${C.navyD} 0%,${C.navy} 55%,#1a3070 100%)`,display:"flex",alignItems:"center",padding: isMobile ? "90px 1rem 3rem" : "80px 1.5rem 4rem",fontFamily:F,position:"relative",overflow:"hidden" }}>
         <div style={{ position:"absolute",top:-120,right:-80,width:550,height:550,borderRadius:"50%",background:"radial-gradient(circle,rgba(19,178,75,0.1) 0%,transparent 65%)",pointerEvents:"none" }}/>
         <div style={{ position:"absolute",inset:0,backgroundImage:"linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",backgroundSize:"60px 60px",pointerEvents:"none" }}/>
-        <div style={{ maxWidth:1180,margin:"0 auto",width:"100%",display:"grid",gridTemplateColumns:"1fr auto",gap:"3rem",alignItems:"center" }}>
+        <div style={{ maxWidth:1180,margin:"0 auto",width:"100%",display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1fr auto",gap: isMobile ? "2rem" : "3rem",alignItems:"center" }}>
           <div>
             <div style={{ display:"inline-flex",alignItems:"center",gap:8,background:"rgba(19,178,75,0.15)",border:"1px solid rgba(19,178,75,0.35)",borderRadius:30,padding:"5px 16px",marginBottom:"1.5rem" }}>
               <div style={{ width:7,height:7,borderRadius:"50%",background:C.green,boxShadow:`0 0 8px ${C.green}` }}/>
@@ -243,7 +393,7 @@ function HomePage({ setPage }) {
             <p style={{ color:"rgba(255,255,255,0.62)",fontSize:"1.02rem",lineHeight:1.78,maxWidth:450,margin:"0 0 2.5rem" }}>
               Bunyaad Finance gives merchants and small businesses quick access to digital working capital — simple, transparent, and mobile-first.
             </p>
-            <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap" }}>
+            <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:isMobile ? "center" : "flex-start" }}>
               <button onClick={() => setPage("Products")} style={{ backgroundColor:C.green,color:"#fff",border:"none",borderRadius:8,padding:"13px 26px",fontSize:"0.9rem",fontWeight:700,cursor:"pointer",fontFamily:F,display:"flex",alignItems:"center",gap:8,boxShadow:`0 6px 24px rgba(19,178,75,0.45)` }}>
                 <Download size={16}/>Download App
               </button>
@@ -251,7 +401,7 @@ function HomePage({ setPage }) {
                 <Calculator size={16}/>Calculator
               </button>
             </div>
-            <div style={{ display:"flex",gap:"2.5rem",marginTop:"2.5rem",borderTop:"1px solid rgba(255,255,255,0.1)",paddingTop:"2rem" }}>
+            <div style={{ display:"flex",gap:isMobile ? "1rem" : "2.5rem",flexWrap:"wrap",justifyContent:isMobile ? "center" : "flex-start",marginTop:"2.5rem",borderTop:"1px solid rgba(255,255,255,0.1)",paddingTop:"2rem" }}>
               {[["3","Products in Calculator"],["1","Product Live"],["PKR 250K","Max Preview Amount"]].map(([v,l])=>(
                 <div key={l}>
                   <div style={{ color:"#fff",fontWeight:800,fontSize:"1.35rem" }}>{v}</div>
@@ -264,14 +414,14 @@ function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section style={{ padding:"5rem 1.5rem",background:"#fff",fontFamily:F }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:"#fff",fontFamily:F }}>
         <div style={{ maxWidth:1180,margin:"0 auto" }}>
           <div style={{ textAlign:"center",marginBottom:"3rem" }}>
             <Tag>WHY BUNYAAD FINANCE</Tag>
             <h2 style={{ color:C.navy,fontSize:"clamp(1.6rem,3vw,2.2rem)",fontWeight:800,margin:"0.75rem 0 0.75rem",letterSpacing:"-0.02em" }}>Built for merchants. Designed for growth.</h2>
             <p style={{ color:C.slate,fontSize:"0.97rem",maxWidth:480,margin:"0 auto",lineHeight:1.75 }}>A financing platform that understands the real needs of Pakistan's business community.</p>
           </div>
-          <div style={{ display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"1.25rem" }}>
+          <div style={{ display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : useIsTablet() ? "repeat(2,1fr)" : "repeat(4,1fr)",gap:"1.25rem" }}>
             {[
               { icon:<Zap size={24}/>,title:"Fast Digital Journey",desc:"Simple application designed for merchants who need quick access to financing.",c:C.green },
               { icon:<FileText size={24}/>,title:"Transparent Terms",desc:"Clear product structure and pricing with no hidden charges.",c:"#2563eb" },
@@ -289,7 +439,7 @@ function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section style={{ padding:"5rem 1.5rem",background:C.light,fontFamily:F }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:C.light,fontFamily:F }}>
         <div style={{ maxWidth:1180,margin:"0 auto" }}>
           <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:"2.5rem",flexWrap:"wrap",gap:"1rem" }}>
             <div>
@@ -301,7 +451,7 @@ function HomePage({ setPage }) {
               View All Products<ArrowRight size={15}/>
             </button>
           </div>
-          <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"1.5rem" }}>
+          <div style={{ display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : useIsTablet() ? "repeat(2,1fr)" : "repeat(3,1fr)",gap:"1.5rem" }}>
             {HOME_PRODUCTS.map(({ name,badge,desc,detail,color,icon,soon }) => (
               <div key={name} style={{ background:"#fff",borderRadius:18,padding:"1.75rem",border:`1.5px solid ${soon?"rgba(28,37,84,0.06)":color+"44"}`,position:"relative",overflow:"hidden",transition:"box-shadow .2s" }}>
                 {soon && <div style={{ position:"absolute",inset:0,background:"repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(28,37,84,0.018) 8px,rgba(28,37,84,0.018) 16px)",pointerEvents:"none" }}/>}
@@ -323,7 +473,7 @@ function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section style={{ padding:"5rem 1.5rem",background:"#fff",fontFamily:F }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:"#fff",fontFamily:F }}>
         <div style={{ maxWidth:1180,margin:"0 auto",textAlign:"center" }}>
           <Tag>HOW IT WORKS</Tag>
           <h2 style={{ color:C.navy,fontSize:"clamp(1.5rem,3vw,2.1rem)",fontWeight:800,margin:"0.75rem 0 2.5rem",letterSpacing:"-0.02em" }}>Finance in five simple steps</h2>
@@ -342,7 +492,7 @@ function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section style={{ padding:"2.5rem 1.5rem",background:`linear-gradient(135deg,${C.navyD},${C.navy})`,fontFamily:F }}>
+      <section style={{ padding: isMobile ? "2rem 1rem" : "2.5rem 1.5rem",background:`linear-gradient(135deg,${C.navyD},${C.navy})`,fontFamily:F }}>
         <div style={{ maxWidth:1180,margin:"0 auto",display:"flex",justifyContent:"center",flexWrap:"wrap",gap:"2rem",alignItems:"center" }}>
           {[[<Shield size={17}/>,1,"Licensed NBFC"],[<Building2 size={17}/>,2,"Operated by Credsys"],[<Lock size={17}/>,3,"Secure & Compliant"],[<CheckCircle size={17}/>,4,"Transparent Pricing"]].map(([ic,k,txt])=>(
             <div key={k} style={{ display:"flex",alignItems:"center",gap:8,color:"rgba(255,255,255,0.68)",fontSize:"0.82rem",fontWeight:500 }}>
@@ -352,7 +502,7 @@ function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section style={{ padding:"5rem 1.5rem",background:C.light,fontFamily:F }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:C.light,fontFamily:F }}>
         <div style={{ maxWidth:700,margin:"0 auto",background:`linear-gradient(135deg,${C.navy},${C.navyL})`,borderRadius:24,padding:"3.5rem",textAlign:"center",position:"relative",overflow:"hidden" }}>
           <div style={{ position:"absolute",top:-40,right:-40,width:200,height:200,borderRadius:"50%",background:"radial-gradient(circle,rgba(19,178,75,0.18),transparent)",pointerEvents:"none" }}/>
           <Calculator size={32} color={C.green} style={{ marginBottom:"1rem" }}/>
@@ -369,11 +519,13 @@ function HomePage({ setPage }) {
 }
 
 function AboutPage() {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   return (
     <div>
       <PageHero tag="ABOUT US" title="Built to support business growth" sub="Bunyaad Finance is a digital financing platform designed to help merchants and small businesses access structured, simple, and transparent financing support."/>
-      <section style={{ padding:"5rem 1.5rem",background:"#fff",fontFamily:F }}>
-        <div style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"4rem",alignItems:"center" }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:"#fff",fontFamily:F }}>
+        <div style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1fr 1fr",gap:"4rem",alignItems:"center" }}>
           <div>
             <Tag green>WHO WE ARE</Tag>
             <h2 style={{ color:C.navy,fontSize:"clamp(1.4rem,3vw,2rem)",fontWeight:800,margin:"0.75rem 0 1rem",letterSpacing:"-0.02em" }}>The brand behind the platform</h2>
@@ -407,7 +559,7 @@ function AboutPage() {
           </div>
         </div>
       </section>
-      <section style={{ padding:"4rem 1.5rem 5rem",background:C.light,fontFamily:F }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "4rem 1.5rem 5rem",background:C.light,fontFamily:F }}>
         <div style={{ maxWidth:1100,margin:"0 auto" }}>
           <div style={{ textAlign:"center",marginBottom:"2.5rem" }}>
             <Tag>OUR MISSION</Tag>
@@ -487,25 +639,52 @@ const PRODUCTS_DATA = [
 ];
 
 function ProductsPage({ setPage }) {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const [active,setActive]=useState(0);
   const prod=PRODUCTS_DATA[active];
   return (
     <div>
       <PageHero tag="FINANCING PRODUCTS" title="Financing solutions designed for business needs" sub="Explore product options created to support inventory cycles, supplier payments, and short-term business liquidity requirements."/>
-      <section style={{ padding:"5rem 1.5rem",background:"#fff",fontFamily:F }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:"#fff",fontFamily:F }}>
         <div style={{ maxWidth:1100,margin:"0 auto" }}>
           <div style={{ display:"flex",gap:"0.75rem",marginBottom:"2.5rem",flexWrap:"wrap" }}>
             {PRODUCTS_DATA.map((p,i) => (
-              <button key={p.name} onClick={() => setActive(i)}
-                style={{ fontFamily:F,fontSize:"0.84rem",fontWeight:600,padding:"9px 20px",borderRadius:8,cursor:"pointer",transition:"all .2s",
-                  background:active===i?p.color:"transparent",
-                  color:active===i?"#fff":C.slate,
-                  border:active===i?`1.5px solid ${p.color}`:`1.5px solid ${C.border}` }}>
-                {p.name}
-                <span style={{ marginLeft:8,fontSize:"0.62rem",padding:"2px 8px",borderRadius:10,
-                  background:active===i?"rgba(255,255,255,0.2)":p.status==="active"?`${p.color}18`:"rgba(28,37,84,0.06)",
-                  color:active===i?"#fff":p.status==="active"?p.color:C.slate }}>{p.badge}</span>
-              </button>
+              <button
+                  key={p.name}
+                  onClick={() => p.status !== "soon" && setActive(i)} // Disable for 'soon' status
+                  style={{
+                    fontFamily: F,
+                    fontSize: "0.84rem",
+                    fontWeight: 600,
+                    padding: "9px 20px",
+                    borderRadius: 8,
+                    cursor: p.status === "soon" ? "not-allowed" : "pointer", // Disable pointer for 'soon' products
+                    transition: "all .2s",
+                    background: active === i ? p.color : "transparent",
+                    color: active === i ? "#fff" : C.slate,
+                    border: active === i ? `1.5px solid ${p.color}` : `1.5px solid ${C.border}`,
+                  }}
+                >
+                  {p.name}
+                  <span
+                    style={{
+                      marginLeft: 8,
+                      fontSize: "0.62rem",
+                      padding: "2px 8px",
+                      borderRadius: 10,
+                      background:
+                        active === i
+                          ? "rgba(255,255,255,0.2)"
+                          : p.status === "active"
+                          ? `${p.color}18`
+                          : "rgba(28,37,84,0.06)",
+                      color: active === i ? "#fff" : p.status === "active" ? p.color : C.slate,
+                    }}
+                  >
+                    {p.badge}
+                  </span>
+                </button>
             ))}
           </div>
 
@@ -529,7 +708,7 @@ function ProductsPage({ setPage }) {
               </div>
             </div>
           ) : (
-            <div style={{ display:"grid",gridTemplateColumns:"1.2fr 1fr",gap:"3rem" }}>
+            <div style={{ display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1.2fr 1fr",gap:"3rem" }}>
               <div>
                 <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyL})`,borderRadius:20,padding:"2rem",marginBottom:"1.5rem" }}>
                   <div style={{ display:"inline-flex",alignItems:"center",gap:6,background:"rgba(19,178,75,0.2)",border:"1px solid rgba(19,178,75,0.4)",borderRadius:6,padding:"3px 10px",marginBottom:"1rem" }}>
@@ -598,12 +777,14 @@ const STEPS = [
 ];
 
 function HowItWorksPage({ setPage }) {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const [active,setActive]=useState(0);
   return (
     <div>
       <PageHero tag="HOW IT WORKS" title="Your financing journey in 5 steps" sub="Simple, transparent, and designed around the real needs of Pakistan's merchants and small businesses."/>
-      <section style={{ padding:"5rem 1.5rem",background:"#fff",fontFamily:F }}>
-        <div style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns:"1fr 1.35fr",gap:"3rem",alignItems:"start" }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:"#fff",fontFamily:F }}>
+        <div style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1fr 1.35fr",gap:"3rem",alignItems:"start" }}>
           <div style={{ display:"flex",flexDirection:"column",gap:"0.5rem" }}>
             {STEPS.map((s,i) => (
               <button key={i} onClick={() => setActive(i)} style={{ background:active===i?`linear-gradient(135deg,${C.navy},${C.navyL})`:"transparent",border:active===i?"none":`1px solid ${C.border}`,borderRadius:14,padding:"1.2rem 1.4rem",cursor:"pointer",fontFamily:F,display:"flex",alignItems:"center",gap:"1rem",textAlign:"left",transition:"all .25s" }}>
@@ -640,8 +821,12 @@ function HowItWorksPage({ setPage }) {
 }
 
 function CalculatorPage() {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+
   const [productId, setProductId] = useState("flexicash30");
-  const product = CALCULATOR_PRODUCTS.find((p) => p.id === productId) || CALCULATOR_PRODUCTS[1];
+  const product =
+    CALCULATOR_PRODUCTS.find((p) => p.id === productId) || CALCULATOR_PRODUCTS[1];
   const [amount, setAmount] = useState(product.amountMin);
 
   useEffect(() => {
@@ -651,114 +836,469 @@ function CalculatorPage() {
   const result = useMemo(() => {
     const principal = Number(amount) || 0;
     const markup = (principal * product.markupRate) / 100;
-    const processingFee = Math.max((principal * product.processingFeeRate) / 100, product.processingFeeMin);
+    const processingFee = Math.max(
+      (principal * product.processingFeeRate) / 100,
+      product.processingFeeMin
+    );
     const totalRepayment = principal + markup + processingFee;
-    const deductions = product.deductionMode === "daily" ? product.tenor : Math.ceil(product.tenor / 7);
+    const deductions =
+      product.deductionMode === "daily"
+        ? product.tenor
+        : Math.ceil(product.tenor / 7);
     const perDeduction = totalRepayment / deductions;
-    return { principal, markup, processingFee, totalRepayment, deductions, perDeduction };
+
+    return {
+      principal,
+      markup,
+      processingFee,
+      totalRepayment,
+      deductions,
+      perDeduction,
+    };
   }, [amount, product]);
 
   return (
     <div>
-      <PageHero tag="CALCULATOR" title="Estimate your repayment instantly" sub="Choose a product, confirm the fixed tenor, enter an amount, and view total repayment with daily or weekly deduction estimates."/>
-      <section style={{ padding:"5rem 1.5rem",background:C.light,fontFamily:F }}>
-        <div style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns:"1.05fr 0.95fr",gap:"2rem" }}>
-          <div style={{ background:"#fff",borderRadius:22,border:`1px solid ${C.border}`,padding:"2rem",boxShadow:"0 10px 35px rgba(28,37,84,0.05)" }}>
-            <div style={{ marginBottom:"1.5rem" }}>
+      <PageHero
+        tag="CALCULATOR"
+        title="Estimate your repayment instantly"
+        sub="Choose a product, confirm the fixed tenor, enter an amount, and view total repayment with daily or weekly deduction estimates."
+      />
+
+      <section
+        style={{
+          padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",
+          background: C.light,
+          fontFamily: F,
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "1.05fr 0.95fr",
+            gap: "2rem",
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: 22,
+              border: `1px solid ${C.border}`,
+              padding: isMobile ? "1.25rem" : "2rem",
+              boxShadow: "0 10px 35px rgba(28,37,84,0.05)",
+            }}
+          >
+            <div style={{ marginBottom: "1.5rem" }}>
               <Tag green>CONFIGURE CALCULATOR</Tag>
-              <h2 style={{ color:C.navy,fontSize:"1.8rem",fontWeight:800,margin:"0.6rem 0 0.4rem",letterSpacing:"-0.02em" }}>Product calculator</h2>
-              <p style={{ color:C.slate,fontSize:"0.92rem",lineHeight:1.7,margin:0 }}>Total repayment includes principal, markup, and processing fee.</p>
+              <h2
+                style={{
+                  color: C.navy,
+                  fontSize: isMobile ? "1.4rem" : "1.8rem",
+                  fontWeight: 800,
+                  margin: "0.6rem 0 0.4rem",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Product calculator
+              </h2>
+              <p
+                style={{
+                  color: C.slate,
+                  fontSize: "0.92rem",
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                Total repayment includes principal, markup, and processing fee.
+              </p>
             </div>
 
-            <div style={{ marginBottom:"1.25rem" }}>
-              <label style={{ display:"block",fontWeight:700,color:C.navy,fontSize:"0.82rem",marginBottom:8 }}>Select Product</label>
-              <div style={{ position:"relative" }}>
-                <select value={productId} onChange={(e) => setProductId(e.target.value)} style={{ width:"100%",padding:"13px 42px 13px 14px",borderRadius:10,border:`1px solid ${C.border}`,background:"#fff",fontFamily:F,fontSize:"0.9rem",color:C.navy,appearance:"none",outline:"none" }}>
-                  {CALCULATOR_PRODUCTS.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+            <div style={{ marginBottom: "1.25rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontWeight: 700,
+                  color: C.navy,
+                  fontSize: "0.82rem",
+                  marginBottom: 8,
+                }}
+              >
+                Select Product
+              </label>
+
+              <div style={{ position: "relative" }}>
+                <select
+                  value={productId}
+                  onChange={(e) => setProductId(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "13px 42px 13px 14px",
+                    borderRadius: 10,
+                    border: `1px solid ${C.border}`,
+                    background: "#fff",
+                    fontFamily: F,
+                    fontSize: "0.9rem",
+                    color: C.navy,
+                    appearance: "none",
+                    outline: "none",
+                  }}
+                >
+                  {CALCULATOR_PRODUCTS.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
                 </select>
-                <ChevronDown size={16} style={{ position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",color:C.slate }} />
+
+                <ChevronDown
+                  size={16}
+                  style={{
+                    position: "absolute",
+                    right: 14,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: C.slate,
+                  }}
+                />
               </div>
-              <p style={{ color:C.slate,fontSize:"0.82rem",lineHeight:1.7,margin:"0.55rem 0 0" }}>{product.desc}</p>
+
+              <p
+                style={{
+                  color: C.slate,
+                  fontSize: "0.82rem",
+                  lineHeight: 1.7,
+                  margin: "0.55rem 0 0",
+                }}
+              >
+                {product.desc}
+              </p>
             </div>
 
             {!product.live && (
-              <div style={{ marginBottom:"1.25rem",background:C.amberBg,border:`1px solid rgba(245,158,11,0.25)`,borderRadius:12,padding:"0.9rem 1rem" }}>
-                <div style={{ color:"#92400e",fontSize:"0.82rem",fontWeight:700,marginBottom:4 }}>For display only</div>
-                <div style={{ color:"#92400e",fontSize:"0.8rem",lineHeight:1.65 }}>This product is shown in the calculator for preview purposes. Only FlexiCash 30 is currently available on the website.</div>
+              <div
+                style={{
+                  marginBottom: "1.25rem",
+                  background: C.amberBg,
+                  border: `1px solid rgba(245,158,11,0.25)`,
+                  borderRadius: 12,
+                  padding: "0.9rem 1rem",
+                }}
+              >
+                <div
+                  style={{
+                    color: "#92400e",
+                    fontSize: "0.82rem",
+                    fontWeight: 700,
+                    marginBottom: 4,
+                  }}
+                >
+                  For display only
+                </div>
+                <div
+                  style={{
+                    color: "#92400e",
+                    fontSize: "0.8rem",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  This product is shown in the calculator for preview purposes.
+                  Only FlexiCash 30 is currently available on the website.
+                </div>
               </div>
             )}
 
             {product.live && (
-              <div style={{ marginBottom:"1.25rem",background:"rgba(19,178,75,0.10)",border:`1px solid rgba(19,178,75,0.20)`,borderRadius:12,padding:"0.9rem 1rem" }}>
-                <div style={{ color:C.greenD,fontSize:"0.82rem",fontWeight:700,marginBottom:4 }}>Currently available</div>
-                <div style={{ color:C.greenD,fontSize:"0.8rem",lineHeight:1.65 }}>FlexiCash 30 is the only product currently available on the website.</div>
+              <div
+                style={{
+                  marginBottom: "1.25rem",
+                  background: "rgba(19,178,75,0.10)",
+                  border: `1px solid rgba(19,178,75,0.20)`,
+                  borderRadius: 12,
+                  padding: "0.9rem 1rem",
+                }}
+              >
+                <div
+                  style={{
+                    color: C.greenD,
+                    fontSize: "0.82rem",
+                    fontWeight: 700,
+                    marginBottom: 4,
+                  }}
+                >
+                  Currently available
+                </div>
+                <div
+                  style={{
+                    color: C.greenD,
+                    fontSize: "0.8rem",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  FlexiCash 30 is the only product currently available on the website.
+                </div>
               </div>
             )}
 
-            <div style={{ marginBottom:"1.25rem" }}>
-              <label style={{ display:"block",fontWeight:700,color:C.navy,fontSize:"0.82rem",marginBottom:8 }}>Tenor</label>
-              <div style={{ background:C.light,border:`1px solid ${C.border}`,borderRadius:10,padding:"13px 14px",fontSize:"0.9rem",fontWeight:600,color:C.navy }}>
-                Fixed tenor: {product.tenor} days
-              </div>
-            </div>
-
-            <div style={{ marginBottom:"1rem" }}>
-              <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8 }}>
-                <label style={{ fontWeight:700,color:C.navy,fontSize:"0.82rem" }}>Amount</label>
-                <span style={{ color:C.navy,fontWeight:800,fontSize:"0.9rem" }}>{formatPKR(amount)}</span>
-              </div>
-              <input type="range" min={product.amountMin} max={product.amountMax} step={product.step} value={amount} onChange={(e) => setAmount(Number(e.target.value))} style={{ width:"100%" }} />
-              <div style={{ display:"flex",justifyContent:"space-between",marginTop:8,color:C.slate,fontSize:"0.74rem",fontWeight:600 }}>
-                <span>{formatPKR(product.amountMin)}</span>
-                <span>{formatPKR(product.amountMax)}</span>
-              </div>
-            </div>
-
-            <div>
-              <input type="number" min={product.amountMin} max={product.amountMax} step={product.step} value={amount}
-                onChange={(e) => {
-                  const next = Number(e.target.value || 0);
-                  const safe = Math.min(product.amountMax, Math.max(product.amountMin, next));
-                  setAmount(safe);
+            <div style={{ marginBottom: "1.25rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontWeight: 700,
+                  color: C.navy,
+                  fontSize: "0.82rem",
+                  marginBottom: 8,
                 }}
-                style={{ width:"100%",padding:"13px 14px",borderRadius:10,border:`1px solid ${C.border}`,fontFamily:F,fontSize:"0.9rem",color:C.navy,outline:"none" }} />
+              >
+                Tenor
+              </label>
+
+              <div
+                style={{
+                  background: C.light,
+                  border: `1px solid ${C.border}`,
+                  borderRadius: 10,
+                  padding: "13px 14px",
+                  color: C.navy,
+                  fontWeight: 600,
+                  textAlign: "left",
+                }}
+              >
+                {product.tenor} days
+              </div>
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontWeight: 700,
+                  color: C.navy,
+                  fontSize: "0.82rem",
+                  marginBottom: 8,
+                }}
+              >
+                Amount
+              </label>
+
+              <input
+                type="range"
+                min={product.amountMin}
+                max={product.amountMax}
+                step={product.step}
+                value={amount}
+                onChange={(e) => setAmount(Number(e.target.value))}
+                style={{ width: "100%" }}
+              />
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 12,
+                  flexWrap: "wrap",
+                  marginTop: 10,
+                }}
+              >
+                <span style={{ color: C.slate, fontSize: "0.8rem" }}>
+                  {formatPKR(product.amountMin)}
+                </span>
+                <strong style={{ color: C.navy, fontSize: "0.95rem" }}>
+                  {formatPKR(amount)}
+                </strong>
+                <span style={{ color: C.slate, fontSize: "0.8rem" }}>
+                  {formatPKR(product.amountMax)}
+                </span>
+              </div>
             </div>
           </div>
 
-          <div style={{ display:"flex",flexDirection:"column",gap:"1rem" }}>
-            <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:"1rem" }}>
-              <div style={{ background:"#fff",borderRadius:18,border:`1px solid ${C.border}`,padding:"1.35rem" }}>
-                <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"0.8rem" }}>
-                  <span style={{ color:C.slate,fontSize:"0.78rem",fontWeight:700 }}>TOTAL REPAYMENT</span>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
+          >
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                gap: "1rem",
+              }}
+            >
+              <div
+                style={{
+                  background: "#fff",
+                  borderRadius: 18,
+                  border: `1px solid ${C.border}`,
+                  padding: "1.35rem",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "0.8rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      color: C.slate,
+                      fontSize: "0.78rem",
+                      fontWeight: 700,
+                    }}
+                  >
+                    TOTAL REPAYMENT
+                  </span>
                   <DollarSign size={18} color={C.green} />
                 </div>
-                <div style={{ color:C.navy,fontSize:"1.7rem",fontWeight:900,letterSpacing:"-0.03em" }}>{formatPKR(result.totalRepayment)}</div>
-                <div style={{ color:C.slate,fontSize:"0.76rem",marginTop:6 }}>Principal + Markup + Processing Fee</div>
+
+                <div
+                  style={{
+                    color: C.navy,
+                    fontSize: isMobile ? "1.35rem" : "1.7rem",
+                    fontWeight: 900,
+                    letterSpacing: "-0.03em",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {formatPKR(result.totalRepayment)}
+                </div>
+
+                <div style={{ color: C.slate, fontSize: "0.76rem", marginTop: 6 }}>
+                  Principal + Markup + Processing Fee
+                </div>
               </div>
-              <div style={{ background:"#fff",borderRadius:18,border:`1px solid ${C.border}`,padding:"1.35rem" }}>
-                <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"0.8rem" }}>
-                  <span style={{ color:C.slate,fontSize:"0.78rem",fontWeight:700 }}>{product.deductionMode === "daily" ? "DAILY DEDUCTION" : "WEEKLY DEDUCTION"}</span>
+
+              <div
+                style={{
+                  background: "#fff",
+                  borderRadius: 18,
+                  border: `1px solid ${C.border}`,
+                  padding: "1.35rem",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "0.8rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      color: C.slate,
+                      fontSize: "0.78rem",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {product.deductionMode === "daily"
+                      ? "DAILY DEDUCTION"
+                      : "WEEKLY DEDUCTION"}
+                  </span>
                   <Clock size={18} color={C.green} />
                 </div>
-                <div style={{ color:C.navy,fontSize:"1.7rem",fontWeight:900,letterSpacing:"-0.03em" }}>{formatPKR(result.perDeduction)}</div>
-                <div style={{ color:C.slate,fontSize:"0.76rem",marginTop:6 }}>{result.deductions} {product.deductionMode} deductions</div>
+
+                <div
+                  style={{
+                    color: C.navy,
+                    fontSize: isMobile ? "1.35rem" : "1.7rem",
+                    fontWeight: 900,
+                    letterSpacing: "-0.03em",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {formatPKR(result.perDeduction)}
+                </div>
+
+                <div style={{ color: C.slate, fontSize: "0.76rem", marginTop: 6 }}>
+                  {result.deductions} {product.deductionMode} deductions
+                </div>
               </div>
             </div>
 
-            <div style={{ background:"#fff",borderRadius:18,border:`1px solid ${C.border}`,padding:"1.6rem" }}>
-              <h3 style={{ color:C.navy,fontWeight:800,fontSize:"1.05rem",margin:"0 0 1rem" }}>Calculation Breakdown</h3>
-              <div style={{ display:"flex",flexDirection:"column",gap:"0.7rem" }}>
+            <div
+              style={{
+                background: "#fff",
+                borderRadius: 18,
+                border: `1px solid ${C.border}`,
+                padding: isMobile ? "1.1rem" : "1.6rem",
+              }}
+            >
+              <h3
+                style={{
+                  color: C.navy,
+                  fontWeight: 800,
+                  fontSize: "1.05rem",
+                  margin: "0 0 1rem",
+                }}
+              >
+                Calculation Breakdown
+              </h3>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.7rem",
+                }}
+              >
                 {[
                   ["Selected Product", product.name],
                   ["Tenor", `${product.tenor} days`],
                   ["Principal Amount", formatPKR(result.principal)],
                   [`Markup (${product.markupRate}%)`, formatPKR(result.markup)],
-                  [`Processing Fee (${product.processingFeeRate}% | Min ${formatPKR(product.processingFeeMin)})`, formatPKR(result.processingFee)],
-                  ["Repayment Mode", product.deductionMode === "daily" ? "Daily deduction" : "Weekly deduction"],
-                ].map(([label,value]) => (
-                  <div key={label} style={{ display:"flex",justifyContent:"space-between",gap:14,background:C.light,borderRadius:10,padding:"0.9rem 1rem" }}>
-                    <span style={{ color:C.slate,fontSize:"0.8rem",lineHeight:1.5 }}>{label}</span>
-                    <span style={{ color:C.navy,fontSize:"0.82rem",fontWeight:700,textAlign:"right",lineHeight:1.5 }}>{value}</span>
+                  [
+                    `Processing Fee (${product.processingFeeRate}% | Min ${formatPKR(
+                      product.processingFeeMin
+                    )})`,
+                    formatPKR(result.processingFee),
+                  ],
+                  [
+                    "Repayment Mode",
+                    product.deductionMode === "daily"
+                      ? "Daily deduction"
+                      : "Weekly deduction",
+                  ],
+                ].map(([label, value]) => (
+                  <div
+                    key={label}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      flexDirection: isMobile ? "column" : "row",
+                      gap: 8,
+                      background: C.light,
+                      borderRadius: 10,
+                      padding: "0.9rem 1rem",
+                      textAlign: "left",
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: C.slate,
+                        fontSize: "0.8rem",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {label}
+                    </span>
+                    <span
+                      style={{
+                        color: C.navy,
+                        fontSize: "0.82rem",
+                        fontWeight: 700,
+                        textAlign: isMobile ? "left" : "right",
+                        lineHeight: 1.5,
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {value}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -785,13 +1325,15 @@ const ALL_FAQS = [
 const FAQ_CATS = ["All",...[...new Set(ALL_FAQS.map(f=>f.cat))]];
 
 function FAQsPage({ setPage }) {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();  
   const [open,setOpen]=useState(null);
   const [cat,setCat]=useState("All");
   const filtered = cat==="All"?ALL_FAQS:ALL_FAQS.filter(f=>f.cat===cat);
   return (
     <div>
       <PageHero tag="FAQs" title="Frequently asked questions" sub="Everything you need to know about Bunyaad Finance and our products."/>
-      <section style={{ padding:"5rem 1.5rem",background:C.light,fontFamily:F }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:C.light,fontFamily:F }}>
         <div style={{ maxWidth:780,margin:"0 auto" }}>
           <div style={{ display:"flex",gap:"0.5rem",marginBottom:"2rem",flexWrap:"wrap" }}>
             {FAQ_CATS.map(c => (
@@ -829,6 +1371,8 @@ function FAQsPage({ setPage }) {
 }
 
 function ContactPage() {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();  
   const [form,setForm]=useState({ name:"",email:"",subject:"",message:"" });
   const [sent,setSent]=useState(false);
   const h=e=>setForm(p=>({ ...p,[e.target.name]:e.target.value }));
@@ -836,8 +1380,8 @@ function ContactPage() {
   return (
     <div>
       <PageHero tag="CONTACT" title="We are here to help" sub="For general support, product queries, or complaints, please use the channels below."/>
-      <section style={{ padding:"5rem 1.5rem",background:"#fff",fontFamily:F }}>
-        <div style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns:"1fr 1.6fr",gap:"3rem" }}>
+      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:"#fff",fontFamily:F }}>
+        <div style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1fr 1.6fr",gap:"3rem" }}>
           <div>
             <h3 style={{ color:C.navy,fontWeight:800,fontSize:"1.05rem",margin:"0 0 1.5rem" }}>Contact Information</h3>
             {[
