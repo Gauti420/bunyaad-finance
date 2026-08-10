@@ -1,14 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import {
   ChevronDown, ChevronUp, Download, Phone, Mail, MapPin,
   ArrowRight, CheckCircle, Shield, Zap, RefreshCw, Briefcase,
   TrendingUp, Clock, DollarSign, FileText, Building2, Users,
   Award, HeartHandshake, Star, Lock, Package,
-  MessageSquare, Layers, Calculator
+  MessageSquare, Layers, Calculator, Home
 } from "lucide-react";
 import { C, F, useIsMobile, useIsTablet } from "./lib/theme.js";
-import { Logo, Navbar, Tag, PageHero, Footer } from "./components/Layout.jsx";
+import { Logo, Navbar, Tag, PageHero, Footer, Breadcrumbs } from "./components/Layout.jsx";
 import PrivacyPolicyPage from "./pages/PrivacyPolicy.jsx";
 import TermsAndConditionsPage from "./pages/TermsAndConditions.jsx";
 
@@ -1168,6 +1168,7 @@ function MainApp() {
     <div style={{ minHeight:"100vh",display:"flex",flexDirection:"column" }}>
       <Navbar page={page} setPage={setPage}/>
       <main style={{ flex:1,paddingTop:66 }}>
+        {page!=="Home" && <Breadcrumbs items={[{ label:"Home",page:"Home" },{ label:page,page }]} onNavigate={setPage}/>}
         {page==="Home" && <HomePage setPage={setPage}/>}
         {page==="About Us" && <AboutPage/>}
         {page==="Products" && <ProductsPage setPage={setPage}/>}
@@ -1181,12 +1182,37 @@ function MainApp() {
   );
 }
 
+function NotFoundPage() {
+  const navigate = useNavigate();
+  return (
+    <div style={{ minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:`linear-gradient(135deg,${C.navyD},${C.navy})`,fontFamily:F,padding:"2rem 1.5rem",textAlign:"center" }}>
+      <div style={{ maxWidth:520 }}>
+        <div style={{ display:"flex",justifyContent:"center",marginBottom:"2rem" }}><Logo dark/></div>
+        <div style={{ color:C.green,fontSize:"clamp(3.5rem,10vw,6rem)",fontWeight:900,lineHeight:1,letterSpacing:"-0.04em",marginBottom:"0.5rem" }}>404</div>
+        <h1 style={{ color:"#fff",fontSize:"clamp(1.4rem,3vw,1.8rem)",fontWeight:800,margin:"0 0 0.75rem" }}>Page Not Found</h1>
+        <p style={{ color:"rgba(255,255,255,0.62)",fontSize:"0.95rem",lineHeight:1.75,margin:"0 0 2rem" }}>
+          The link you followed may be broken, or the page may have been moved. Let's get you back on track.
+        </p>
+        <div style={{ display:"flex",gap:"0.75rem",justifyContent:"center",flexWrap:"wrap" }}>
+          <button onClick={() => navigate("/")} style={{ background:C.green,color:"#fff",border:"none",borderRadius:8,padding:"12px 26px",fontSize:"0.86rem",fontWeight:700,cursor:"pointer",fontFamily:F,display:"inline-flex",alignItems:"center",gap:8 }}>
+            <Home size={16}/>Back to Home
+          </button>
+          <button onClick={() => navigate("/",{ state:{ page:"Contact" } })} style={{ background:"none",color:"#fff",border:"1.5px solid rgba(255,255,255,0.3)",borderRadius:8,padding:"12px 26px",fontSize:"0.86rem",fontWeight:700,cursor:"pointer",fontFamily:F }}>
+            Contact Support
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<MainApp/>}/>
       <Route path="/privacy-policy" element={<PrivacyPolicyPage/>}/>
       <Route path="/terms-and-conditions" element={<TermsAndConditionsPage/>}/>
+      <Route path="*" element={<NotFoundPage/>}/>
     </Routes>
 
 );

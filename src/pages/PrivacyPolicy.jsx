@@ -4,7 +4,7 @@ import {
   FileText, Zap, Users, Lock, CheckCircle, RefreshCw, Shield, MessageSquare,
 } from "lucide-react";
 import { C, F, useIsMobile } from "../lib/theme.js";
-import { Navbar, PageHero, Footer } from "../components/Layout.jsx";
+import { Navbar, PageHero, Footer, Breadcrumbs } from "../components/Layout.jsx";
 
 const PRIVACY_SECTIONS = [
   { icon:<FileText size={20}/>,title:"Information We Collect",body:"We may collect personal, business, and financial information you provide directly through the Bunyaad Finance app or website. This includes your name, contact details, CNIC/business registration information, banking and settlement data, transaction history, and device or usage information required to assess and process your financing application." },
@@ -27,6 +27,7 @@ export default function PrivacyPolicyPage() {
     <div style={{ minHeight:"100vh",display:"flex",flexDirection:"column" }}>
       <Navbar page={null} setPage={goToPage}/>
       <main style={{ flex:1,paddingTop:66 }}>
+        <Breadcrumbs items={[{ label:"Home",page:"Home" },{ label:"Privacy Policy",page:"Privacy Policy" }]} onNavigate={goToPage}/>
         <PageHero tag="PRIVACY POLICY" title="Your privacy matters to us" sub="This Privacy Policy explains how Bunyaad Finance, operated by Credsys, collects, uses, and protects your personal information. Last updated: August 2026."/>
         <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:"#fff",fontFamily:F }}>
           <div style={{ maxWidth:820,margin:"0 auto" }}>

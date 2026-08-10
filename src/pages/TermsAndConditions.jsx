@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Download, ExternalLink, MessageSquare } from "lucide-react";
 import { C, F, useIsMobile } from "../lib/theme.js";
-import { Navbar, PageHero, Footer } from "../components/Layout.jsx";
+import { Navbar, PageHero, Footer, Breadcrumbs } from "../components/Layout.jsx";
 
 const TNC_DOCS = {
   en: { label:"English", url:"https://mb-app-uat.credsys.net/static/tnc_eng.pdf" },
@@ -22,6 +22,7 @@ export default function TermsAndConditionsPage() {
     <div style={{ minHeight:"100vh",display:"flex",flexDirection:"column" }}>
       <Navbar page={null} setPage={goToPage}/>
       <main style={{ flex:1,paddingTop:66 }}>
+        <Breadcrumbs items={[{ label:"Home",page:"Home" },{ label:"Terms & Conditions",page:"Terms & Conditions" }]} onNavigate={goToPage}/>
         <PageHero tag="TERMS & CONDITIONS" title="Terms & Conditions" sub="Please read the official Terms & Conditions below before using the Bunyaad Finance platform or applying for any financing product."/>
         <section style={{ padding: isMobile ? "2rem 1rem 3rem" : "3rem 1.5rem 5rem",background:"#fff",fontFamily:F }}>
           <div style={{ maxWidth:960,margin:"0 auto" }}>

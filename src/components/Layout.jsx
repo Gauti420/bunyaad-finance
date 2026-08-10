@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Download, Home, ChevronRight } from "lucide-react";
 import { C, F, PAGES, useIsMobile } from "../lib/theme.js";
 
 const LEGAL_ROUTES = {
@@ -218,6 +218,34 @@ export function PageHero({ tag,title,sub }) {
         {sub && <p style={{ color:"rgba(255,255,255,0.62)",fontSize:"1.02rem",lineHeight:1.75,margin:0 }}>{sub}</p>}
       </div>
     </section>
+  );
+}
+
+export function Breadcrumbs({ items, onNavigate }) {
+  return (
+    <div style={{ background:C.light,borderBottom:`1px solid ${C.border}`,padding:"0.85rem 1.5rem",fontFamily:F }}>
+      <div style={{ maxWidth:1200,margin:"0 auto",display:"flex",alignItems:"center",gap:6,flexWrap:"wrap" }}>
+        {items.map((item,i) => {
+          const isLast = i === items.length - 1;
+          return (
+            <span key={item.label} style={{ display:"inline-flex",alignItems:"center",gap:6 }}>
+              {i > 0 && <ChevronRight size={13} color={C.slate} style={{ opacity:0.5 }}/>}
+              {isLast ? (
+                <span style={{ color:C.navy,fontSize:"0.78rem",fontWeight:600 }}>{item.label}</span>
+              ) : (
+                <button
+                  onClick={() => onNavigate(item.page)}
+                  style={{ background:"none",border:"none",padding:0,cursor:"pointer",color:C.slate,fontSize:"0.78rem",fontWeight:500,fontFamily:F,display:"inline-flex",alignItems:"center",gap:4 }}
+                >
+                  {i === 0 && <Home size={13}/>}
+                  {item.label}
+                </button>
+              )}
+            </span>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
