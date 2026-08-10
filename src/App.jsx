@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import {
   ChevronDown, ChevronUp, Download, Phone, Mail, MapPin,
   ArrowRight, CheckCircle, Shield, Zap, RefreshCw, Briefcase,
-  TrendingUp, Clock, DollarSign, FileText, Send, Building2, Users,
+  TrendingUp, Clock, DollarSign, FileText, Building2, Users,
   Award, HeartHandshake, Star, Lock, Package,
   MessageSquare, Layers, Calculator
 } from "lucide-react";
@@ -1129,71 +1129,30 @@ function FAQsPage({ setPage }) {
 
 function ContactPage() {
   const isMobile = useIsMobile();
-  const isTablet = useIsTablet();  
-  const [form,setForm]=useState({ name:"",email:"",subject:"",message:"" });
-  const [sent,setSent]=useState(false);
-  const h=e=>setForm(p=>({ ...p,[e.target.name]:e.target.value }));
-  const sub=e=>{ e.preventDefault(); if(form.name&&form.email&&form.message) setSent(true); };
   return (
     <div>
       <PageHero tag="CONTACT" title="We are here to help" sub="For general support, product queries, or complaints, please use the channels below."/>
       <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 1.5rem",background:"#fff",fontFamily:F }}>
-        <div style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1fr 1.6fr",gap:"3rem" }}>
-          <div>
-            <h3 style={{ color:C.navy,fontWeight:800,fontSize:"1.05rem",margin:"0 0 1.5rem" }}>Contact Information</h3>
-            {[
-              { icon:<Mail size={19}/>,label:"Support Email",value:"Support@Bunyaadfinance.pk",c:C.green },
-              { icon:<Phone size={19}/>,label:"Helpline",value:"+92 3235542403 ",c:C.teal },
-              { icon:<MapPin size={19}/>,label:"Office Address",value:"4th Floor PMSTP Bahria University, Karachi Campus, 13th National Stadium Road Karachi, Pakistan.",c:"#7c3aed" },
-            ].map(({ icon,label,value,c }) => (
-              <div key={label} style={{ display:"flex",gap:"1rem",alignItems:"flex-start",marginBottom:"1.2rem" }}>
-                <div style={{ width:43,height:43,borderRadius:10,background:`${c}14`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,color:c }}>{icon}</div>
-                <div><div style={{ color:C.slate,fontSize:"0.68rem",fontWeight:600,letterSpacing:"0.04em",marginBottom:3 }}>{label.toUpperCase()}</div><div style={{ color:C.navy,fontWeight:600,fontSize:"0.88rem" }}>{value}</div></div>
+        <div style={{ maxWidth:700,margin:"0 auto" }}>
+          <h3 style={{ color:C.navy,fontWeight:800,fontSize:"1.05rem",margin:"0 0 1.5rem" }}>Contact Information</h3>
+          {[
+            { icon:<Mail size={19}/>,label:"Support Email",value:"Support@Bunyaadfinance.pk",c:C.green },
+            { icon:<Phone size={19}/>,label:"Helpline",value:"+92 3235542403 ",c:C.teal },
+            { icon:<MapPin size={19}/>,label:"Office Address",value:"4th Floor PMSTP Bahria University, Karachi Campus, 13th National Stadium Road Karachi, Pakistan.",c:"#7c3aed" },
+          ].map(({ icon,label,value,c }) => (
+            <div key={label} style={{ display:"flex",gap:"1rem",alignItems:"flex-start",marginBottom:"1.2rem" }}>
+              <div style={{ width:43,height:43,borderRadius:10,background:`${c}14`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,color:c }}>{icon}</div>
+              <div><div style={{ color:C.slate,fontSize:"0.68rem",fontWeight:600,letterSpacing:"0.04em",marginBottom:3 }}>{label.toUpperCase()}</div><div style={{ color:C.navy,fontWeight:600,fontSize:"0.88rem" }}>{value}</div></div>
+            </div>
+          ))}
+          <div style={{ background:C.light,borderRadius:14,padding:"1.4rem",border:`1px solid ${C.border}`,marginTop:"2rem" }}>
+            <h4 style={{ color:C.navy,fontWeight:700,fontSize:"0.86rem",margin:"0 0 1rem" }}>Complaint Resolution</h4>
+            {["Submit via email or helpline","Complaint logged & acknowledged","Team reviews — may request more info","Resolution update within timeline","Unresolved matters escalated"].map((s,i) => (
+              <div key={i} style={{ display:"flex",gap:9,alignItems:"flex-start",marginBottom:"0.55rem" }}>
+                <div style={{ width:19,height:19,borderRadius:"50%",background:C.green,color:"#fff",fontSize:"0.6rem",fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>{i+1}</div>
+                <span style={{ color:C.slate,fontSize:"0.79rem",lineHeight:1.55 }}>{s}</span>
               </div>
             ))}
-            <div style={{ background:C.light,borderRadius:14,padding:"1.4rem",border:`1px solid ${C.border}`,marginTop:"2rem" }}>
-              <h4 style={{ color:C.navy,fontWeight:700,fontSize:"0.86rem",margin:"0 0 1rem" }}>Complaint Resolution</h4>
-              {["Submit via email, form, or helpline","Complaint logged & acknowledged","Team reviews — may request more info","Resolution update within timeline","Unresolved matters escalated"].map((s,i) => (
-                <div key={i} style={{ display:"flex",gap:9,alignItems:"flex-start",marginBottom:"0.55rem" }}>
-                  <div style={{ width:19,height:19,borderRadius:"50%",background:C.green,color:"#fff",fontSize:"0.6rem",fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>{i+1}</div>
-                  <span style={{ color:C.slate,fontSize:"0.79rem",lineHeight:1.55 }}>{s}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div style={{ background:"#fff",borderRadius:20,border:`1px solid ${C.border}`,padding:"2.25rem",boxShadow:"0 4px 30px rgba(28,37,84,0.07)" }}>
-            {sent ? (
-              <div style={{ textAlign:"center",padding:"3rem 2rem" }}>
-                <div style={{ width:64,height:64,borderRadius:"50%",background:"rgba(19,178,75,0.12)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 1.25rem" }}><CheckCircle size={30} color={C.green}/></div>
-                <h3 style={{ color:C.navy,fontWeight:800,fontSize:"1.2rem",margin:"0 0 0.5rem" }}>Message Sent!</h3>
-                <p style={{ color:C.slate,fontSize:"0.9rem",marginBottom:"1.5rem" }}>Our team will get back to you shortly.</p>
-                <button onClick={() => { setSent(false);setForm({ name:"",email:"",subject:"",message:"" }); }} style={{ background:"none",border:`1.5px solid ${C.green}`,color:C.green,borderRadius:8,padding:"9px 22px",cursor:"pointer",fontFamily:F,fontWeight:600,fontSize:"0.84rem" }}>Send Another</button>
-              </div>
-            ) : (
-              <form onSubmit={sub}>
-                <h3 style={{ color:C.navy,fontWeight:800,fontSize:"1.05rem",margin:"0 0 1.5rem" }}>Send us a message</h3>
-                <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:"1rem",marginBottom:"1rem" }}>
-                  {[{ name:"name",label:"Full Name",ph:"Your full name" },{ name:"email",label:"Email / Mobile",ph:"email@example.com" }].map(({ name,label,ph }) => (
-                    <div key={name}>
-                      <label style={{ color:C.navy,fontSize:"0.73rem",fontWeight:600,display:"block",marginBottom:5 }}>{label}</label>
-                      <input type="text" name={name} value={form[name]} onChange={h} placeholder={ph} required style={{ width:"100%",border:`1px solid ${C.border}`,borderRadius:8,padding:"10px 12px",fontSize:"0.86rem",fontFamily:F,color:C.navy,outline:"none",background:"#fafbff" }}/>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ marginBottom:"1rem" }}>
-                  <label style={{ color:C.navy,fontSize:"0.73rem",fontWeight:600,display:"block",marginBottom:5 }}>Subject</label>
-                  <input type="text" name="subject" value={form.subject} onChange={h} placeholder="How can we help?" style={{ width:"100%",border:`1px solid ${C.border}`,borderRadius:8,padding:"10px 12px",fontSize:"0.86rem",fontFamily:F,color:C.navy,outline:"none",background:"#fafbff" }}/>
-                </div>
-                <div style={{ marginBottom:"1.5rem" }}>
-                  <label style={{ color:C.navy,fontSize:"0.73rem",fontWeight:600,display:"block",marginBottom:5 }}>Message</label>
-                  <textarea name="message" value={form.message} onChange={h} placeholder="Describe your query or complaint..." required rows={4} style={{ width:"100%",border:`1px solid ${C.border}`,borderRadius:8,padding:"10px 12px",fontSize:"0.86rem",fontFamily:F,color:C.navy,outline:"none",resize:"vertical",background:"#fafbff" }}/>
-                </div>
-                <button type="submit" style={{ width:"100%",backgroundColor:C.navy,color:"#fff",border:"none",borderRadius:8,padding:"13px",fontSize:"0.9rem",fontWeight:700,cursor:"pointer",fontFamily:F,display:"flex",alignItems:"center",justifyContent:"center",gap:8,boxShadow:`0 4px 20px rgba(28,37,84,0.2)` }}>
-                  <Send size={16}/>Submit Inquiry
-                </button>
-                <p style={{ color:C.slate,fontSize:"0.7rem",textAlign:"center",marginTop:"0.75rem" }}>By submitting, you agree to our Privacy Policy and Terms & Conditions.</p>
-              </form>
-            )}
           </div>
         </div>
       </section>
@@ -1229,5 +1188,6 @@ export default function App() {
       <Route path="/privacy-policy" element={<PrivacyPolicyPage/>}/>
       <Route path="/terms-and-conditions" element={<TermsAndConditionsPage/>}/>
     </Routes>
-  );
+
+);
 }
