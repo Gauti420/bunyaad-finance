@@ -8,7 +8,7 @@ import {
   MessageSquare, Layers, Calculator, Home
 } from "lucide-react";
 import { C, F, useIsMobile, useIsTablet } from "./lib/theme.js";
-import { Logo, Navbar, Tag, PageHero, Footer, Breadcrumbs } from "./components/Layout.jsx";
+import { Logo, Navbar, Tag, PageHero, Footer, Breadcrumbs, ComingSoonModal } from "./components/Layout.jsx";
 import PrivacyPolicyPage from "./pages/PrivacyPolicy.jsx";
 import TermsAndConditionsPage from "./pages/TermsAndConditions.jsx";
 
@@ -133,6 +133,7 @@ const HOME_PRODUCTS = [
 function HomePage({ setPage }) {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const [showComingSoon, setShowComingSoon] = useState(false);
   return (
     <div>
       <section style={{ minHeight:"100vh",background:`linear-gradient(145deg,${C.navyD} 0%,${C.navy} 55%,#1a3070 100%)`,display:"flex",alignItems:"center",padding: isMobile ? "90px 1rem 3rem" : "80px 1.5rem 4rem",fontFamily:F,position:"relative",overflow:"hidden" }}>
@@ -151,7 +152,7 @@ function HomePage({ setPage }) {
               Bunyaad Finance gives merchants and small businesses quick access to digital working capital — simple, transparent, and mobile-first.
             </p>
             <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:isMobile ? "center" : "flex-start" }}>
-              <button onClick={() => setPage("Products")} style={{ backgroundColor:C.green,color:"#fff",border:"none",borderRadius:8,padding:"13px 26px",fontSize:"0.9rem",fontWeight:700,cursor:"pointer",fontFamily:F,display:"flex",alignItems:"center",gap:8,boxShadow:`0 6px 24px rgba(19,178,75,0.45)` }}>
+              <button onClick={() => setShowComingSoon(true)} style={{ backgroundColor:C.green,color:"#fff",border:"none",borderRadius:8,padding:"13px 26px",fontSize:"0.9rem",fontWeight:700,cursor:"pointer",fontFamily:F,display:"flex",alignItems:"center",gap:8,boxShadow:`0 6px 24px rgba(19,178,75,0.45)` }}>
                 <Download size={16}/>Download App
               </button>
               <button onClick={() => setPage("Calculator")} style={{ backgroundColor:"transparent",color:"#fff",border:"1.5px solid rgba(255,255,255,0.22)",borderRadius:8,padding:"13px 26px",fontSize:"0.9rem",fontWeight:600,cursor:"pointer",fontFamily:F,display:"flex",alignItems:"center",gap:8 }}>
@@ -271,6 +272,7 @@ function HomePage({ setPage }) {
           </button>
         </div>
       </section>
+      <ComingSoonModal open={showComingSoon} onClose={() => setShowComingSoon(false)}/>
     </div>
   );
 }

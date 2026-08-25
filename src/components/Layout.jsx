@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { Menu, X, Download, Home, ChevronRight } from "lucide-react";
+import { Menu, X, Download, Home, ChevronRight, Smartphone } from "lucide-react";
 import { C, F, PAGES, useIsMobile } from "../lib/theme.js";
 
 const LEGAL_ROUTES = {
@@ -38,9 +39,99 @@ export function Logo({ dark = false }) {
   );
 }
 
+export function ComingSoonModal({ open, onClose }) {
+  if (!open) return null;
+  return createPortal(
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(17,24,48,0.6)",
+        backdropFilter: "blur(4px)",
+        zIndex: 1200,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1.5rem",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: "#fff",
+          borderRadius: 16,
+          padding: "2.5rem 2rem",
+          maxWidth: 380,
+          width: "100%",
+          textAlign: "center",
+          fontFamily: F,
+          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+          position: "relative",
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: 14,
+            right: 14,
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: C.slate,
+          }}
+        >
+          <X size={20} />
+        </button>
+        <div
+          style={{
+            width: 58,
+            height: 58,
+            borderRadius: "50%",
+            background: "rgba(19,178,75,0.12)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto 1.25rem",
+            color: C.green,
+          }}
+        >
+          <Smartphone size={26} />
+        </div>
+        <h3 style={{ color: C.navy, fontSize: "1.15rem", fontWeight: 800, margin: "0 0 0.6rem" }}>
+          Coming Soon
+        </h3>
+        <p style={{ color: C.slate, fontSize: "0.86rem", lineHeight: 1.65, margin: "0 0 1.5rem" }}>
+          The Bunyaad Finance app is on its way. We'll let you know the moment it's ready to download.
+        </p>
+        <button
+          onClick={onClose}
+          style={{
+            backgroundColor: C.green,
+            color: "#fff",
+            border: "none",
+            borderRadius: 8,
+            padding: "11px 24px",
+            fontSize: "0.85rem",
+            fontWeight: 700,
+            cursor: "pointer",
+            fontFamily: F,
+            width: "100%",
+          }}
+        >
+          Got it
+        </button>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 export function Navbar({ page, setPage }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -118,7 +209,7 @@ export function Navbar({ page, setPage }) {
             ))}
 
             <button
-              onClick={() => setPage("Products")}
+              onClick={() => setShowComingSoon(true)}
               style={{
                 marginLeft: 6,
                 backgroundColor: C.green,
@@ -177,7 +268,7 @@ export function Navbar({ page, setPage }) {
 
           <button
             onClick={() => {
-              setPage("Products");
+              setShowComingSoon(true);
               setMenuOpen(false);
             }}
             style={{
@@ -195,6 +286,8 @@ export function Navbar({ page, setPage }) {
           </button>
         </div>
       )}
+
+      <ComingSoonModal open={showComingSoon} onClose={() => setShowComingSoon(false)} />
 
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');*{box-sizing:border-box}body{margin:0;background:#f0f4ff;font-family:'Poppins',sans-serif}`}</style>
     </nav>
