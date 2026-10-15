@@ -109,7 +109,7 @@ function HomePage({ setPage }) {
         <div style={{ position:"absolute",top:-120,right:-80,width:550,height:550,borderRadius:"50%",background:"radial-gradient(circle,rgba(19,178,75,0.1) 0%,transparent 65%)",pointerEvents:"none" }}/>
         <div style={{ position:"absolute",inset:0,backgroundImage:"linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",backgroundSize:"60px 60px",pointerEvents:"none" }}/>
         <div style={{ maxWidth:1180,margin:"0 auto",width:"100%",display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1fr 230px",gap: isMobile ? "2rem" : "3rem",alignItems:"center" }}>
-          <div>
+          <div style={{ textAlign:"left" }}>
             <div style={{ display:"inline-flex",alignItems:"center",gap:8,background:"rgba(19,178,75,0.15)",border:"1px solid rgba(19,178,75,0.35)",borderRadius:30,padding:"5px 16px",marginBottom:"1.5rem" }}>
               <div style={{ width:7,height:7,borderRadius:"50%",background:C.green,boxShadow:`0 0 8px ${C.green}` }}/>
               <span style={{ color:C.green,fontSize:"0.71rem",fontWeight:600,letterSpacing:"0.06em" }}>Powered by Credsys — Licensed NBFC</span>
