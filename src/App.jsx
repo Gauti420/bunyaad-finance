@@ -3,7 +3,7 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import {
   ChevronDown, ChevronUp, Download, Phone, Mail, MapPin,
   ArrowRight, CheckCircle, Shield, Zap, RefreshCw, Briefcase,
-  TrendingUp, Clock, DollarSign, FileText, Building2, Users,
+  TrendingUp, Clock, Banknote, FileText, Building2, Users,
   Award, HeartHandshake, Star, Lock, Package,
   MessageSquare, Layers, Calculator, Home
 } from "lucide-react";
@@ -358,7 +358,7 @@ const PRODUCTS_DATA = [
     segment:"Active POS merchants with stable settlement history.",
     purpose:"Support monthly inventory cycles, enable business continuity during cash-flow gaps, and provide quick access to capital with a structured repayment approach.",
     specs:[
-      { label:"Facility Amount",value:"PKR 50,000 – 150,000",icon:<DollarSign size={17}/> },
+      { label:"Facility Amount",value:"PKR 50,000 – 150,000",icon:<Banknote size={17}/> },
       { label:"Tenor",value:"30 Days (fixed)",icon:<Clock size={17}/> },
       { label:"Markup Rate",value:"10% flat for 30 days",icon:<TrendingUp size={17}/> },
       { label:"Processing Fee",value:"1% (min. PKR 1,000)",icon:<FileText size={17}/> },
@@ -375,7 +375,7 @@ const PRODUCTS_DATA = [
     segment:"Established businesses with strong financial history.",
     purpose:"Fund growth, equipment purchases, and larger capital needs.",
     specs:[
-      { label:"Facility Amount",value:"To Be Announced",icon:<DollarSign size={17}/> },
+      { label:"Facility Amount",value:"To Be Announced",icon:<Banknote size={17}/> },
       { label:"Tenor",value:"3–12 Months",icon:<Clock size={17}/> },
       { label:"Rate",value:"To Be Announced",icon:<TrendingUp size={17}/> },
       { label:"Processing Fee",value:"To Be Announced",icon:<FileText size={17}/> },
@@ -912,7 +912,7 @@ function CalculatorPage() {
                   >
                     TOTAL REPAYMENT
                   </span>
-                  <DollarSign size={18} color={C.green} />
+                  <Banknote size={18} color={C.green} />
                 </div>
 
                 <div
