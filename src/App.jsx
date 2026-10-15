@@ -528,7 +528,7 @@ function ProductsPage({ setPage }) {
 }
 
 const STEPS = [
-  { n:"01",title:"Get Started",desc:"Download the Bunyaad Finance app and begin your onboarding journey.",icon:<Download size={23}/>,detail:"Available on Android and iOS. The app is the starting point for your entire financing journey with Bunyaad Finance." },
+  { n:"01",title:"Get Started",desc:"Download the Bunyaad Finance app and begin your onboarding journey.",icon:<Download size={23}/>,detail:"Available on Android. The app is the starting point for your entire financing journey with Bunyaad Finance." },
   { n:"02",title:"Complete Your Profile",desc:"Provide the required profile, business, and supporting information.",icon:<Users size={23}/>,detail:"This includes your business details, identity verification, and relevant supporting documents required by our assessment process." },
   { n:"03",title:"Assessment & Verification",desc:"Your information is assessed against internal eligibility, verification, and risk criteria.",icon:<Shield size={23}/>,detail:"Our team reviews your profile against product criteria. You may be contacted if additional information is required during assessment." },
   { n:"04",title:"Financing Decision",desc:"If approved, you receive the applicable financing offer with key terms.",icon:<CheckCircle size={23}/>,detail:"A 24-hour cooling-off period is provided after the offer is made. You have time to review all terms before accepting." },
