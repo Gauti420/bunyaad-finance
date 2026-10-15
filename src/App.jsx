@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { C, F, useIsMobile, useIsTablet } from "./lib/theme.js";
 import { Logo, Navbar, Tag, PageHero, Footer, Breadcrumbs, ComingSoonModal } from "./components/Layout.jsx";
+import appHomeScreenshot from "./assets/app-home-screenshot.png";
 import PrivacyPolicyPage from "./pages/PrivacyPolicy.jsx";
 import TermsAndConditionsPage from "./pages/TermsAndConditions.jsx";
 
@@ -72,49 +73,17 @@ function PhoneMockup() {
   return (
     <div style={{ position:"relative",width:"100%",maxWidth:230,margin:"0 auto",flexShrink:0 }}>
       <div style={{ position:"absolute",top:"15%",left:"50%",transform:"translateX(-50%)",width:220,height:220,borderRadius:"50%",background:`radial-gradient(circle,rgba(19,178,75,0.22) 0%,transparent 70%)`,pointerEvents:"none",zIndex:0 }}/>
-      <div style={{ position:"relative",zIndex:1,width:"100%",aspectRatio:"230 / 460",borderRadius:38,background:"linear-gradient(160deg,#1e2d6b,#0f1a38)",border:"2px solid rgba(255,255,255,0.18)",boxShadow:"0 36px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.14)",overflow:"hidden" }}>
-        <div style={{ position:"absolute",top:0,left:"50%",transform:"translateX(-50%)",width:88,height:24,background:"#080f20",borderRadius:"0 0 18px 18px",zIndex:10,display:"flex",alignItems:"center",justifyContent:"center",gap:5 }}>
-          <div style={{ width:7,height:7,borderRadius:"50%",background:"#1a2a4a" }}/>
-          <div style={{ width:38,height:5,borderRadius:3,background:"#1a2a4a" }}/>
+      <div style={{ position:"relative",zIndex:1,width:"100%",aspectRatio:"230 / 460",borderRadius:38,background:"linear-gradient(160deg,#0A1225,#000000)",border:"2px solid rgba(255,255,255,0.18)",boxShadow:"0 36px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.14)",overflow:"hidden" }}>
+        <div style={{ position:"absolute",top:0,left:"50%",transform:"translateX(-50%)",width:88,height:24,background:"#000000",borderRadius:"0 0 18px 18px",zIndex:10,display:"flex",alignItems:"center",justifyContent:"center",gap:5 }}>
+          <div style={{ width:7,height:7,borderRadius:"50%",background:"#5E6B80" }}/>
+          <div style={{ width:38,height:5,borderRadius:3,background:"#5E6B80" }}/>
         </div>
-        <div style={{ padding:"30px 11px 11px",height:"100%" }}>
-          <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10 }}>
-            <div style={{ color:"rgba(255,255,255,0.38)",fontSize:"0.56rem",fontFamily:F }}>9:41</div>
-            <Logo dark/>
-            <div style={{ width:18 }}/>
-          </div>
-          <div style={{ background:"linear-gradient(135deg,#1c2554,#253580)",borderRadius:13,padding:"12px 11px",marginBottom:9 }}>
-            <div style={{ color:"rgba(255,255,255,0.5)",fontSize:"0.56rem",fontFamily:F }}>Good morning 👋</div>
-            <div style={{ color:"#fff",fontWeight:700,fontSize:"0.74rem",fontFamily:F,marginBottom:8 }}>Ahmed Ali</div>
-            <div style={{ display:"flex",justifyContent:"space-between",background:"rgba(255,255,255,0.07)",borderRadius:7,padding:"7px 9px" }}>
-              <div><div style={{ color:"rgba(255,255,255,0.42)",fontSize:"0.5rem",fontFamily:F }}>LIMIT</div><div style={{ color:C.green,fontWeight:700,fontSize:"0.68rem",fontFamily:F }}>PKR 1,00,000</div></div>
-              <div style={{ width:1,background:"rgba(255,255,255,0.1)" }}/>
-              <div><div style={{ color:"rgba(255,255,255,0.42)",fontSize:"0.5rem",fontFamily:F }}>STATUS</div><div style={{ color:"#fff",fontWeight:700,fontSize:"0.68rem",fontFamily:F }}>Active</div></div>
-            </div>
-          </div>
-          <div style={{ background:`linear-gradient(135deg,${C.green},#0a7a32)`,borderRadius:11,padding:"9px 11px",marginBottom:9 }}>
-            <div style={{ color:"rgba(255,255,255,0.72)",fontSize:"0.52rem",fontFamily:F }}>FEATURED PRODUCT</div>
-            <div style={{ color:"#fff",fontWeight:800,fontSize:"0.78rem",fontFamily:F,marginBottom:3 }}>FlexiCash 30</div>
-            <div style={{ display:"flex",justifyContent:"space-between" }}>
-              {[["Markup","10% Flat"],["Tenor","30 Days"],["Max","150K"]].map(([k,v])=>(
-                <div key={k}><div style={{ color:"rgba(255,255,255,0.6)",fontSize:"0.48rem",fontFamily:F }}>{k}</div><div style={{ color:"#fff",fontWeight:700,fontSize:"0.62rem",fontFamily:F }}>{v}</div></div>
-              ))}
-            </div>
-          </div>
-          <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,marginBottom:9 }}>
-            {[["Apply Now",C.green],["Repay",C.navy]].map(([l,bg])=>(
-              <div key={l} style={{ background:bg,borderRadius:7,padding:"7px",textAlign:"center" }}>
-                <div style={{ color:"#fff",fontWeight:700,fontSize:"0.58rem",fontFamily:F }}>{l}</div>
-              </div>
-            ))}
-          </div>
-          <div style={{ color:"rgba(255,255,255,0.38)",fontSize:"0.52rem",fontFamily:F,marginBottom:4 }}>RECENT ACTIVITY</div>
-          {[["Disbursement","+ PKR 50,000","#13b24b"],["Processing Fee","- PKR 500","#f87171"]].map(([l,v,col])=>(
-            <div key={l} style={{ display:"flex",justifyContent:"space-between",background:"rgba(255,255,255,0.05)",borderRadius:5,padding:"5px 7px",marginBottom:3 }}>
-              <div style={{ color:"rgba(255,255,255,0.65)",fontSize:"0.52rem",fontFamily:F }}>{l}</div>
-              <div style={{ color:col,fontWeight:700,fontSize:"0.52rem",fontFamily:F }}>{v}</div>
-            </div>
-          ))}
+        <div style={{ position:"relative",width:"100%",height:"100%",background:"#F4F6F5" }}>
+          <img
+            src={appHomeScreenshot}
+            alt="Bunyaad Finance app home screen"
+            style={{ position:"absolute",top:26,left:0,width:"100%",height:"calc(100% - 26px)",objectFit:"cover",objectPosition:"top center",display:"block" }}
+          />
         </div>
       </div>
       <div style={{ position:"absolute",right:-3,top:95,width:3,height:38,background:"rgba(255,255,255,0.12)",borderRadius:2 }}/>
@@ -127,7 +96,7 @@ function PhoneMockup() {
 const HOME_PRODUCTS = [
   { name:"FlexiCash 30",badge:"Live Now",desc:"Short-term working capital for active POS merchants.",detail:"PKR 50K–150K · 30 Days · 10% Flat",color:C.green,icon:<TrendingUp size={22}/>,soon:false },
   { name:"Business Term Loan",badge:"Coming Soon",desc:"Longer-term financing for established businesses.",detail:"Higher limits · Extended tenor · TBD",color:C.teal,icon:<Briefcase size={22}/>,soon:true },
-  { name:"Inventory Finance",badge:"Coming Soon",desc:"Purpose-built supplier-linked inventory finance.",detail:"Cycle-based · Flexible · TBD",color:"#7c3aed",icon:<Package size={22}/>,soon:true },
+  { name:"Inventory Finance",badge:"Coming Soon",desc:"Purpose-built supplier-linked inventory finance.",detail:"Cycle-based · Flexible · TBD",color:C.navyL,icon:<Package size={22}/>,soon:true },
 ];
 
 function HomePage({ setPage }) {
@@ -136,10 +105,10 @@ function HomePage({ setPage }) {
   const [showComingSoon, setShowComingSoon] = useState(false);
   return (
     <div>
-      <section style={{ minHeight:"100vh",background:`linear-gradient(145deg,${C.navyD} 0%,${C.navy} 55%,#1a3070 100%)`,display:"flex",alignItems:"center",padding: isMobile ? "90px 1rem 3rem" : "80px 1.5rem 4rem",fontFamily:F,position:"relative",overflow:"hidden" }}>
+      <section style={{ minHeight:"100vh",background:`linear-gradient(145deg,${C.navyD} 0%,${C.navy} 55%,${C.navyL} 100%)`,display:"flex",alignItems:"center",padding: isMobile ? "90px 1rem 3rem" : "80px 1.5rem 4rem",fontFamily:F,position:"relative",overflow:"hidden" }}>
         <div style={{ position:"absolute",top:-120,right:-80,width:550,height:550,borderRadius:"50%",background:"radial-gradient(circle,rgba(19,178,75,0.1) 0%,transparent 65%)",pointerEvents:"none" }}/>
         <div style={{ position:"absolute",inset:0,backgroundImage:"linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",backgroundSize:"60px 60px",pointerEvents:"none" }}/>
-        <div style={{ maxWidth:1180,margin:"0 auto",width:"100%",display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1fr auto",gap: isMobile ? "2rem" : "3rem",alignItems:"center" }}>
+        <div style={{ maxWidth:1180,margin:"0 auto",width:"100%",display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1fr 230px",gap: isMobile ? "2rem" : "3rem",alignItems:"center" }}>
           <div>
             <div style={{ display:"inline-flex",alignItems:"center",gap:8,background:"rgba(19,178,75,0.15)",border:"1px solid rgba(19,178,75,0.35)",borderRadius:30,padding:"5px 16px",marginBottom:"1.5rem" }}>
               <div style={{ width:7,height:7,borderRadius:"50%",background:C.green,boxShadow:`0 0 8px ${C.green}` }}/>
@@ -160,7 +129,7 @@ function HomePage({ setPage }) {
               </button>
             </div>
             <div style={{ display:"flex",gap:isMobile ? "1rem" : "2.5rem",flexWrap:"wrap",justifyContent:isMobile ? "center" : "flex-start",marginTop:"2.5rem",borderTop:"1px solid rgba(255,255,255,0.1)",paddingTop:"2rem" }}>
-              {[["3","Products in Calculator"],["1","Product Live"],["PKR 250K","Max Preview Amount"]].map(([v,l])=>(
+              {[["3","Products in Calculator"],["1","Product Live"],["PKR 150K","Max Loan Amount"]].map(([v,l])=>(
                 <div key={l}>
                   <div style={{ color:"#fff",fontWeight:800,fontSize:"1.35rem" }}>{v}</div>
                   <div style={{ color:"rgba(255,255,255,0.42)",fontSize:"0.72rem" }}>{l}</div>
@@ -182,9 +151,9 @@ function HomePage({ setPage }) {
           <div style={{ display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : useIsTablet() ? "repeat(2,1fr)" : "repeat(4,1fr)",gap:"1.25rem" }}>
             {[
               { icon:<Zap size={24}/>,title:"Fast Digital Journey",desc:"Simple application designed for merchants who need quick access to financing.",c:C.green },
-              { icon:<FileText size={24}/>,title:"Transparent Terms",desc:"Clear product structure and pricing with no hidden charges.",c:"#2563eb" },
+              { icon:<FileText size={24}/>,title:"Transparent Terms",desc:"Clear product structure and pricing with no hidden charges.",c:C.navyL },
               { icon:<RefreshCw size={24}/>,title:"Easy Repayment",desc:"Settlement-linked repayment reduces friction for busy business owners.",c:C.teal },
-              { icon:<Briefcase size={24}/>,title:"Built for Business",desc:"Designed for merchants managing inventory, suppliers, and cash-flow.",c:"#7c3aed" },
+              { icon:<Briefcase size={24}/>,title:"Built for Business",desc:"Designed for merchants managing inventory, suppliers, and cash-flow.",c:C.navy },
             ].map(({ icon,title,desc,c }) => (
               <div key={title} style={{ borderRadius:16,padding:"1.75rem",background:C.light,border:`1px solid ${C.border}`,position:"relative",overflow:"hidden" }}>
                 <div style={{ position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg,${c},transparent)` }}/>
@@ -211,19 +180,19 @@ function HomePage({ setPage }) {
           </div>
           <div style={{ display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : useIsTablet() ? "repeat(2,1fr)" : "repeat(3,1fr)",gap:"1.5rem" }}>
             {HOME_PRODUCTS.map(({ name,badge,desc,detail,color,icon,soon }) => (
-              <div key={name} style={{ background:"#fff",borderRadius:18,padding:"1.75rem",border:`1.5px solid ${soon?"rgba(28,37,84,0.06)":color+"44"}`,position:"relative",overflow:"hidden",transition:"box-shadow .2s" }}>
-                {soon && <div style={{ position:"absolute",inset:0,background:"repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(28,37,84,0.018) 8px,rgba(28,37,84,0.018) 16px)",pointerEvents:"none" }}/>}
-                <div style={{ position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg,${color},transparent)` }}/>
+              <div key={name} style={{ background:"#fff",borderRadius:18,padding:"1.75rem",border:`1.5px solid ${soon?"rgba(10,18,37,0.06)":color+"44"}`,position:"relative",overflow:"hidden",transition:"box-shadow .2s" }}>
+                {soon && <div style={{ position:"absolute",inset:0,background:"repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(10,18,37,0.018) 8px,rgba(10,18,37,0.018) 16px)",pointerEvents:"none" }}/>}
+                <div style={{ position:"absolute",top:0,left:0,right:0,height:3,background:soon?`linear-gradient(90deg,${color},transparent)`:`linear-gradient(90deg,${C.navyL},${C.green})` }}/>
                 <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"1.2rem" }}>
                   <div style={{ width:50,height:50,borderRadius:12,background:`${color}18`,display:"flex",alignItems:"center",justifyContent:"center",color }}>{icon}</div>
-                  <span style={{ fontSize:"0.62rem",fontWeight:700,letterSpacing:"0.05em",borderRadius:20,padding:"3px 10px",background:soon?"rgba(28,37,84,0.06)":color+"18",color:soon?C.slate:color }}>{badge}</span>
+                  <span style={{ fontSize:"0.62rem",fontWeight:700,letterSpacing:"0.05em",borderRadius:20,padding:"3px 10px",background:soon?"rgba(10,18,37,0.06)":color+"18",color:soon?C.slate:color }}>{badge}</span>
                 </div>
                 <h3 style={{ color:C.navy,fontWeight:800,fontSize:"1.02rem",margin:"0 0 0.4rem" }}>{name}</h3>
                 <p style={{ color:C.slate,fontSize:"0.83rem",lineHeight:1.6,margin:"0 0 0.7rem" }}>{desc}</p>
                 <div style={{ color:color,fontWeight:600,fontSize:"0.76rem",marginBottom:"1.2rem" }}>{detail}</div>
                 {!soon
                   ? <button onClick={() => setPage("Products")} style={{ width:"100%",backgroundColor:color,color:"#fff",border:"none",borderRadius:8,padding:"10px",fontSize:"0.8rem",fontWeight:700,cursor:"pointer",fontFamily:F }}>View Details →</button>
-                  : <div style={{ width:"100%",borderRadius:8,padding:"10px",fontSize:"0.8rem",fontWeight:600,color:C.slate,textAlign:"center",border:`1px dashed rgba(28,37,84,0.14)`,background:C.light }}>Coming Soon</div>
+                  : <div style={{ width:"100%",borderRadius:8,padding:"10px",fontSize:"0.8rem",fontWeight:600,color:C.slate,textAlign:"center",border:`1px dashed rgba(10,18,37,0.14)`,background:C.light }}>Coming Soon</div>
                 }
               </div>
             ))}
@@ -239,7 +208,7 @@ function HomePage({ setPage }) {
             <div style={{ position:"absolute",top:28,left:"10%",right:"10%",height:2,background:`linear-gradient(90deg,${C.green},${C.teal})`,zIndex:0 }}/>
             {["Download App","Complete Profile","Get Assessed","Receive Financing","Repay & Grow"].map((s,i) => (
               <div key={s} style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:"0.75rem",position:"relative",zIndex:1 }}>
-                <div style={{ width:58,height:58,borderRadius:"50%",background:`linear-gradient(135deg,${C.navy},${C.navyL})`,display:"flex",alignItems:"center",justifyContent:"center",color:C.green,fontWeight:900,fontSize:"1.1rem",boxShadow:`0 4px 20px rgba(28,37,84,0.25)`,border:"3px solid #fff" }}>{i+1}</div>
+                <div style={{ width:58,height:58,borderRadius:"50%",background:`linear-gradient(135deg,${C.navy},${C.navyL})`,display:"flex",alignItems:"center",justifyContent:"center",color:C.green,fontWeight:900,fontSize:"1.1rem",boxShadow:`0 4px 20px rgba(10,18,37,0.25)`,border:"3px solid #fff" }}>{i+1}</div>
                 <div style={{ color:C.navy,fontWeight:600,fontSize:"0.77rem",lineHeight:1.35,maxWidth:88,textAlign:"center" }}>{s}</div>
               </div>
             ))}
@@ -305,9 +274,9 @@ function AboutPage() {
           <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:"1rem" }}>
             {[
               { icon:<HeartHandshake size={22}/>,title:"Trust & Transparency",desc:"Operations built on integrity, compliance, and clear communication.",c:C.green },
-              { icon:<Zap size={22}/>,title:"Accessibility",desc:"Digital-first approach removes barriers for every merchant.",c:"#2563eb" },
+              { icon:<Zap size={22}/>,title:"Accessibility",desc:"Digital-first approach removes barriers for every merchant.",c:C.navyL },
               { icon:<Star size={22}/>,title:"Responsible Growth",desc:"Guided by responsible lending principles and sound risk practices.",c:C.teal },
-              { icon:<Users size={22}/>,title:"Customer-First",desc:"Every product decision is made with the customer in mind.",c:"#7c3aed" },
+              { icon:<Users size={22}/>,title:"Customer-First",desc:"Every product decision is made with the customer in mind.",c:C.navy },
             ].map(({ icon,title,desc,c }) => (
               <div key={title} style={{ background:C.light,borderRadius:14,padding:"1.25rem",border:`1px solid ${C.border}` }}>
                 <div style={{ color:c,marginBottom:8 }}>{icon}</div>
@@ -328,7 +297,7 @@ function AboutPage() {
             {[
               { icon:<Building2 size={28}/>,title:"Licensed & Regulated",sub:"Operated by Credsys",desc:"Credsys holds the required NBFC license. All products are offered under full regulatory compliance.",c:C.navy },
               { icon:<Shield size={28}/>,title:"Compliance First",sub:"Regulatory standards",desc:"All disclosures, processes, and policies are maintained in line with applicable regulatory requirements.",c:C.green },
-              { icon:<Award size={28}/>,title:"Our Values",sub:"Five pillars",desc:"Trust · Accessibility · Responsibility · Digital Convenience · Customer-focused service.",c:"#7c3aed" },
+              { icon:<Award size={28}/>,title:"Our Values",sub:"Five pillars",desc:"Trust · Accessibility · Responsibility · Digital Convenience · Customer-focused service.",c:C.teal },
             ].map(({ icon,title,sub,desc,c }) => (
               <div key={title} style={{ background:"#fff",borderRadius:16,padding:"2rem",border:`1px solid ${C.border}`,borderTop:`3px solid ${c}` }}>
                 <div style={{ color:c,marginBottom:"1rem" }}>{icon}</div>
@@ -393,7 +362,7 @@ const PRODUCTS_DATA = [
       { label:"Tenor",value:"Cycle-based",icon:<Clock size={17}/> },
       { label:"Eligibility",value:"Assessment-based",icon:<CheckCircle size={17}/> },
     ],
-    color:"#7c3aed",
+    color:C.navyL,
   },
 ];
 
@@ -420,7 +389,7 @@ function ProductsPage({ setPage }) {
                     borderRadius: 8,
                     cursor: p.status === "soon" ? "not-allowed" : "pointer", // Disable pointer for 'soon' products
                     transition: "all .2s",
-                    background: active === i ? p.color : "transparent",
+                    background: active === i ? `linear-gradient(135deg,${C.navyL},${C.green})` : "transparent",
                     color: active === i ? "#fff" : C.slate,
                     border: active === i ? `1.5px solid ${p.color}` : `1.5px solid ${C.border}`,
                   }}
@@ -437,7 +406,7 @@ function ProductsPage({ setPage }) {
                           ? "rgba(255,255,255,0.2)"
                           : p.status === "active"
                           ? `${p.color}18`
-                          : "rgba(28,37,84,0.06)",
+                          : "rgba(10,18,37,0.06)",
                       color: active === i ? "#fff" : p.status === "active" ? p.color : C.slate,
                     }}
                   >
@@ -469,10 +438,10 @@ function ProductsPage({ setPage }) {
           ) : (
             <div style={{ display:"grid",gridTemplateColumns: useIsMobile() ? "1fr" : "1.2fr 1fr",gap:"3rem" }}>
               <div>
-                <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyL})`,borderRadius:20,padding:"2rem",marginBottom:"1.5rem" }}>
-                  <div style={{ display:"inline-flex",alignItems:"center",gap:6,background:"rgba(19,178,75,0.2)",border:"1px solid rgba(19,178,75,0.4)",borderRadius:6,padding:"3px 10px",marginBottom:"1rem" }}>
+                <div style={{ background:`linear-gradient(135deg,${C.navyL},${C.green})`,borderRadius:20,padding:"2rem",marginBottom:"1.5rem" }}>
+                  <div style={{ display:"inline-flex",alignItems:"center",gap:6,background:"#fff",borderRadius:20,padding:"3px 10px",marginBottom:"1rem" }}>
                     <div style={{ width:6,height:6,borderRadius:"50%",background:C.green }}/>
-                    <span style={{ color:C.green,fontSize:"0.64rem",fontWeight:700,letterSpacing:"0.06em" }}>AVAILABLE NOW</span>
+                    <span style={{ color:C.navy,fontSize:"0.64rem",fontWeight:700,letterSpacing:"0.06em" }}>AVAILABLE NOW</span>
                   </div>
                   <h2 style={{ color:"#fff",fontWeight:900,fontSize:"2rem",margin:"0 0 0.5rem",letterSpacing:"-0.02em" }}>{prod.name}</h2>
                   <p style={{ color:"rgba(255,255,255,0.58)",fontSize:"0.88rem",lineHeight:1.65,margin:0 }}>{prod.tagline}</p>
@@ -493,7 +462,7 @@ function ProductsPage({ setPage }) {
                 <div style={{ background:"rgba(19,178,75,0.06)",border:"1px solid rgba(19,178,75,0.2)",borderRadius:10,padding:"1rem 1.2rem" }}>
                   <div style={{ display:"flex",gap:8,alignItems:"flex-start" }}>
                     <Shield size={14} color={C.green} style={{ flexShrink:0,marginTop:2 }}/>
-                    <p style={{ color:"#2d6a45",fontSize:"0.77rem",lineHeight:1.65,margin:0 }}><strong>Disclaimer:</strong> {prod.disclaimer}</p>
+                    <p style={{ color:C.greenD,fontSize:"0.77rem",lineHeight:1.65,margin:0 }}><strong>Disclaimer:</strong> {prod.disclaimer}</p>
                   </div>
                 </div>
               </div>
@@ -564,7 +533,7 @@ function HowItWorksPage({ setPage }) {
               <p style={{ color:C.navy,fontSize:"0.87rem",lineHeight:1.8,background:"#fff",borderRadius:10,padding:"1rem",border:`1px solid ${C.border}`,margin:"0 0 1.5rem" }}>{STEPS[active].detail}</p>
               <div style={{ display:"flex",alignItems:"center",gap:8 }}>
                 {STEPS.map((_,i) => (
-                  <div key={i} onClick={() => setActive(i)} style={{ height:6,borderRadius:3,cursor:"pointer",transition:"all .25s",width:i===active?26:7,background:i===active?C.green:"rgba(28,37,84,0.15)" }}/>
+                  <div key={i} onClick={() => setActive(i)} style={{ height:6,borderRadius:3,cursor:"pointer",transition:"all .25s",width:i===active?26:7,background:i===active?C.green:"rgba(10,18,37,0.15)" }}/>
                 ))}
                 <button onClick={() => setActive(a => (a+1)%5)} style={{ marginLeft:"auto",background:C.navy,color:"#fff",border:"none",borderRadius:7,padding:"6px 14px",fontSize:"0.74rem",fontWeight:600,cursor:"pointer",fontFamily:F }}>Next →</button>
               </div>
@@ -646,7 +615,7 @@ function CalculatorPage() {
               borderRadius: 22,
               border: `1px solid ${C.border}`,
               padding: isMobile ? "1.25rem" : "2rem",
-              boxShadow: "0 10px 35px rgba(28,37,84,0.05)",
+              boxShadow: "0 10px 35px rgba(10,18,37,0.05)",
             }}
           >
             <div style={{ marginBottom: "1.5rem" }}>
@@ -739,15 +708,15 @@ function CalculatorPage() {
               <div
                 style={{
                   marginBottom: "1.25rem",
-                  background: C.amberBg,
-                  border: `1px solid rgba(245,158,11,0.25)`,
+                  background: C.mutedBg,
+                  border: `1px solid ${C.borderStrong}`,
                   borderRadius: 12,
                   padding: "0.9rem 1rem",
                 }}
               >
                 <div
                   style={{
-                    color: "#92400e",
+                    color: C.navy,
                     fontSize: "0.82rem",
                     fontWeight: 700,
                     marginBottom: 4,
@@ -757,7 +726,7 @@ function CalculatorPage() {
                 </div>
                 <div
                   style={{
-                    color: "#92400e",
+                    color: C.muted,
                     fontSize: "0.8rem",
                     lineHeight: 1.65,
                   }}
@@ -1101,7 +1070,7 @@ function FAQsPage({ setPage }) {
           </div>
           <div style={{ display:"flex",flexDirection:"column",gap:"0.65rem" }}>
             {filtered.map((faq,i) => (
-              <div key={i} style={{ background:"#fff",borderRadius:12,border:`1px solid ${open===i?"rgba(28,37,84,0.14)":C.border}`,overflow:"hidden",transition:"all .2s" }}>
+              <div key={i} style={{ background:"#fff",borderRadius:12,border:`1px solid ${open===i?"rgba(10,18,37,0.14)":C.border}`,overflow:"hidden",transition:"all .2s" }}>
                 <button onClick={() => setOpen(open===i?null:i)} style={{ width:"100%",background:"none",border:"none",padding:"1.2rem 1.4rem",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",fontFamily:F,gap:"1rem",textAlign:"left" }}>
                   <div style={{ display:"flex",alignItems:"center",gap:10 }}>
                     <span style={{ fontSize:"0.6rem",fontWeight:700,letterSpacing:"0.04em",borderRadius:10,padding:"2px 8px",background:`${C.green}14`,color:C.greenD,flexShrink:0 }}>{faq.cat}</span>
@@ -1110,7 +1079,7 @@ function FAQsPage({ setPage }) {
                   <span style={{ color:open===i?C.green:C.slate,flexShrink:0 }}>{open===i?<ChevronUp size={17}/>:<ChevronDown size={17}/>}</span>
                 </button>
                 {open===i && (
-                  <div style={{ padding:"0 1.4rem 1.2rem",borderTop:`1px solid rgba(28,37,84,0.06)` }}>
+                  <div style={{ padding:"0 1.4rem 1.2rem",borderTop:`1px solid rgba(10,18,37,0.06)` }}>
                     <p style={{ color:C.slate,fontSize:"0.87rem",lineHeight:1.78,margin:"1rem 0 0" }}>{faq.a}</p>
                   </div>
                 )}
@@ -1140,7 +1109,7 @@ function ContactPage() {
           {[
             { icon:<Mail size={19}/>,label:"Support Email",value:"Support@Bunyaadfinance.pk",c:C.green },
             { icon:<Phone size={19}/>,label:"Helpline",value:"+92 3235542403 ",c:C.teal },
-            { icon:<MapPin size={19}/>,label:"Office Address",value:"4th Floor PMSTP Bahria University, Karachi Campus, 13th National Stadium Road Karachi, Pakistan.",c:"#7c3aed" },
+            { icon:<MapPin size={19}/>,label:"Office Address",value:"4th Floor PMSTP Bahria University, Karachi Campus, 13th National Stadium Road Karachi, Pakistan.",c:C.navyL },
           ].map(({ icon,label,value,c }) => (
             <div key={label} style={{ display:"flex",gap:"1rem",alignItems:"flex-start",marginBottom:"1.2rem" }}>
               <div style={{ width:43,height:43,borderRadius:10,background:`${c}14`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,color:c }}>{icon}</div>
