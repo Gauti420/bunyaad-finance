@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
 export const C = {
-  navy: "#1c2554", navyD: "#111830", navyL: "#253580",
-  green: "#13b24b", greenD: "#0e9040", greenL: "#1ecc5a",
-  teal: "#0891b2", slate: "#64748b", light: "#f0f4ff",
-  white: "#ffffff", border: "rgba(28,37,84,0.10)",
-  amber: "#f59e0b", amberBg: "rgba(245,158,11,0.12)",
+  navy: "#0A1225", navyD: "#0A1225", navyL: "#006DAF",
+  green: "#13b24b", greenD: "#0e9040", greenL: "#7EE27E",
+  teal: "#0073E6", slate: "#5E6B80", light: "#F4F6F5",
+  white: "#ffffff", border: "#E3E8E6", borderStrong: "#CFD6D3",
+  muted: "#5E6B80", mutedBg: "#E3E8E6",
 };
 export const F = "'Poppins', sans-serif";
 

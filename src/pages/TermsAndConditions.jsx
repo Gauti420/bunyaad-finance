@@ -54,7 +54,7 @@ export default function TermsAndConditionsPage() {
               </a>
             </div>
 
-            <div style={{ borderRadius:16,border:`1px solid ${C.border}`,overflow:"hidden",boxShadow:"0 10px 35px rgba(28,37,84,0.06)" }}>
+            <div style={{ borderRadius:16,border:`1px solid ${C.border}`,overflow:"hidden",boxShadow:"0 10px 35px rgba(10,18,37,0.06)" }}>
               <iframe
                 key={doc.url}
                 src={doc.url}

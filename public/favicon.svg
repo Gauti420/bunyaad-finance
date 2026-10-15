@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
   <defs>
-    <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#1c2554"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
-    <linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#13b24b"/></linearGradient>
+    <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#0A1225"/><stop offset="1" stop-color="#006DAF"/></linearGradient>
+    <linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#006DAF"/><stop offset="1" stop-color="#13b24b"/></linearGradient>
   </defs>
   <rect x="2" y="5" width="26" height="3" rx="1.5" fill="url(#lg1)"/>
   <rect x="3" y="8" width="3" height="24" rx="1.5" fill="url(#lg1)"/>
@@ -11,5 +11,5 @@
   <rect x="2" y="32" width="26" height="3" rx="1.5" fill="url(#lg1)"/>
   <circle cx="33" cy="9" r="4" fill="#13b24b"/>
   <circle cx="40" cy="5" r="2.5" fill="#13b24b" opacity="0.7"/>
-  <circle cx="40" cy="13" r="2.5" fill="#0891b2" opacity="0.7"/>
+  <circle cx="40" cy="13" r="2.5" fill="#0073E6" opacity="0.7"/>
 </svg>

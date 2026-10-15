@@ -14,8 +14,8 @@ export function Logo({ dark = false }) {
     <div style={{ display:"flex",alignItems:"center",gap:10 }}>
       <svg width="38" height="38" viewBox="0 0 44 44">
         <defs>
-          <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0"><stop stopColor="#1c2554"/><stop offset="1" stopColor="#2563eb"/></linearGradient>
-          <linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#2563eb"/><stop offset="1" stopColor="#13b24b"/></linearGradient>
+          <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0"><stop stopColor="#0A1225"/><stop offset="1" stopColor="#006DAF"/></linearGradient>
+          <linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#006DAF"/><stop offset="1" stopColor="#13b24b"/></linearGradient>
         </defs>
         <rect x="2" y="5" width="26" height="3" rx="1.5" fill="url(#lg1)"/>
         <rect x="3" y="8" width="3" height="24" rx="1.5" fill="url(#lg1)"/>
@@ -25,7 +25,7 @@ export function Logo({ dark = false }) {
         <rect x="2" y="32" width="26" height="3" rx="1.5" fill="url(#lg1)"/>
         <circle cx="33" cy="9" r="4" fill="#13b24b"/>
         <circle cx="40" cy="5" r="2.5" fill="#13b24b" opacity="0.7"/>
-        <circle cx="40" cy="13" r="2.5" fill="#0891b2" opacity="0.7"/>
+        <circle cx="40" cy="13" r="2.5" fill="#0073E6" opacity="0.7"/>
       </svg>
       <div>
         <div style={{ fontFamily:F,fontWeight:800,fontSize:"1.05rem",lineHeight:1.1,color:dark?"#fff":C.navy,letterSpacing:"-0.02em" }}>
@@ -289,14 +289,14 @@ export function Navbar({ page, setPage }) {
 
       <ComingSoonModal open={showComingSoon} onClose={() => setShowComingSoon(false)} />
 
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');*{box-sizing:border-box}body{margin:0;background:#f0f4ff;font-family:'Poppins',sans-serif}`}</style>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');*{box-sizing:border-box}body{margin:0;background:#F4F6F5;font-family:'Poppins',sans-serif}`}</style>
     </nav>
   );
 }
 
 export function Tag({ children, green=false }) {
   return (
-    <div style={{ display:"inline-block",background:green?"rgba(19,178,75,0.12)":"rgba(28,37,84,0.08)",borderRadius:20,padding:"4px 14px",marginBottom:4 }}>
+    <div style={{ display:"inline-block",background:green?"rgba(19,178,75,0.12)":"rgba(10,18,37,0.08)",borderRadius:20,padding:"4px 14px",marginBottom:4 }}>
       <span style={{ color:green?C.greenD:C.navy,fontSize:"0.68rem",fontWeight:700,letterSpacing:"0.08em",fontFamily:F }}>{children}</span>
     </div>
   );
