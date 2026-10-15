@@ -103,7 +103,7 @@ export function ComingSoonModal({ open, onClose }) {
           Coming Soon
         </h3>
         <p style={{ color: C.slate, fontSize: "0.86rem", lineHeight: 1.65, margin: "0 0 1.5rem" }}>
-          The Bunyaad Finance app is on its way. We'll let you know the moment it's ready to download.
+          The Bunyaad Finance app is on its way.
         </p>
         <button
           onClick={onClose}
